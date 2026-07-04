@@ -5,6 +5,8 @@ __pycache__/
 venv/
 .venv/
 case_data/users.json
+case_data/DCase*.json
+evidence_vault/
 *.egg-info/
 dist/
 build/
