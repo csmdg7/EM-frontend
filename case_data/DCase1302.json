@@ -1,0 +1,193 @@
+{
+  "code": "DCase1302",
+  "title": "email 7",
+  "query": "vyshinigowda@gmail.com",
+  "type": "email",
+  "created": "2026-06-30 09:19Z",
+  "status": "Active",
+  "priority": "High / Alpha",
+  "objective": "OSINT scan for target 'vyshinigowda@gmail.com' (email).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-06-30 09:19Z — [PIPELINE] Scan completed",
+    "2026-06-30 09:19Z — [AI] Summary written — 181 chars, context_sections=2",
+    "2026-06-30 09:19Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-06-30 09:19Z — [EMAIL] All sections written",
+    "2026-06-30 09:19Z — [EMAIL] Breach check: Clean.",
+    "2026-06-30 09:19Z — [EMAIL] Social accounts found: 8.",
+    "2026-06-30 09:19Z — [EMAIL] Scan started for 'vyshinigowda@gmail.com'",
+    "2026-06-30 09:19Z — [PIPELINE] Type bucket → 'email'",
+    "2026-06-30 09:19Z — [PIPELINE] Scan started — query='vyshinigowda@gmail.com' type='email'",
+    "2026-06-30 09:19Z — Case DCase1302 created."
+  ],
+  "sections": [
+    {
+      "section": "basic",
+      "query": "vyshinigowda@gmail.com",
+      "type": "email",
+      "local_part": "vyshinigowda",
+      "domain": "gmail.com",
+      "notes": "Email target — querying social media / breach checker API."
+    },
+    {
+      "section": "connected_socials",
+      "query": "vyshinigowda@gmail.com",
+      "profiles": [
+        {
+          "platform": "github",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "google",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "instagram",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "linkedin",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "microsoft",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "spotify",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "discord",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "duolingo",
+          "status": "found",
+          "source": "email-social-media-checker"
+        }
+      ],
+      "registered_count": 8,
+      "not_registered": [
+        "apple",
+        "ebay",
+        "facebook",
+        "flickr",
+        "foursquare",
+        "gravatar",
+        "lastfm",
+        "myspace",
+        "pinterest",
+        "skype",
+        "tumblr",
+        "twitter",
+        "vimeo",
+        "weibo",
+        "yahoo",
+        "ok",
+        "kakao",
+        "booking",
+        "airbnb",
+        "amazon",
+        "qzone",
+        "adobe",
+        "mailru",
+        "wordpress",
+        "imgur",
+        "disneyplus",
+        "netflix",
+        "jdid",
+        "flipkart",
+        "bukalapak",
+        "archiveorg",
+        "lazada",
+        "zoho",
+        "samsung",
+        "evernote",
+        "envato",
+        "patreon",
+        "tokopedia",
+        "rambler",
+        "quora",
+        "atlassian",
+        "aboutme",
+        "altbalaji",
+        "bitmoji",
+        "bodybuilding",
+        "codecademy",
+        "deliveroo",
+        "diigo",
+        "eventbrite",
+        "firefox",
+        "freelancer",
+        "gaana",
+        "giphy",
+        "hubspot",
+        "kommo",
+        "komoot",
+        "nike",
+        "plurk",
+        "rappi",
+        "replit",
+        "seoclerks",
+        "snapchat",
+        "snapdeal",
+        "soundcloud",
+        "starz",
+        "strava",
+        "taringa",
+        "tiki",
+        "treehouse",
+        "venmo",
+        "vivino",
+        "vkontakte",
+        "wattpad",
+        "xing",
+        "yandex",
+        "adult_sites"
+      ],
+      "source": "email-social-media-checker"
+    },
+    {
+      "section": "databreach",
+      "email": "vyshinigowda@gmail.com",
+      "is_breached": false,
+      "breach_count": 0,
+      "first_breach": null,
+      "breaches": [],
+      "breach_names": [],
+      "domain_intel": {
+        "acceptAll": false,
+        "created": "1995-08-13 04:00:00",
+        "dmarcEnforced": true,
+        "registered": true,
+        "registeredTo": "Google LLC",
+        "registrar": "MarkMonitor Inc.",
+        "spfStrict": true,
+        "suspiciousTLD": false,
+        "type": "free",
+        "updated": "2025-07-11 10:10:56",
+        "validMX": true,
+        "websiteExists": true
+      },
+      "score": 1,
+      "applied_rules": [
+        "Domain is a free provider. At least 2 online profiles were found. It was not involved in a data breach"
+      ],
+      "note": "No known breaches."
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY",
+      "generated_at": "2026-06-30 09:19Z",
+      "context_used": 2
+    }
+  ]
+}

@@ -1,0 +1,325 @@
+{
+  "code": "DCase1533",
+  "title": "testcase 1",
+  "query": "suryakiran561203@gmail.com",
+  "type": "email",
+  "created": "2026-07-01 08:13Z",
+  "status": "Active",
+  "priority": "High / Alpha",
+  "objective": "OSINT scan for target 'suryakiran561203@gmail.com' (email).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-07-01 08:27Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-01 08:27Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-01 08:27Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-01 08:27Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-01 08:27Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-01 08:27Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-01 08:14Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-01 08:13Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-01 08:13Z — [PIPELINE] Scan completed",
+    "2026-07-01 08:13Z — [AI] Summary written — 213 chars, context_sections=3",
+    "2026-07-01 08:13Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-07-01 08:13Z — [EMAIL] All sections written",
+    "2026-07-01 08:13Z — [EMAIL] Breach: BREACHED (4)",
+    "2026-07-01 08:13Z — [EMAIL] Social accounts found: 13",
+    "2026-07-01 08:13Z — [EMAIL] Google account found — person_id=113530869506009386761 reviews=1",
+    "2026-07-01 08:13Z — [EMAIL] Scan started for 'suryakiran561203@gmail.com'",
+    "2026-07-01 08:13Z — [PIPELINE] Type bucket → 'email'",
+    "2026-07-01 08:13Z — [PIPELINE] Scan started — query='suryakiran561203@gmail.com' type='email'",
+    "2026-07-01 08:13Z — Case DCase1533 created."
+  ],
+  "sections": [
+    {
+      "section": "basic",
+      "query": "suryakiran561203@gmail.com",
+      "type": "email",
+      "local_part": "suryakiran561203",
+      "domain": "gmail.com",
+      "notes": "Email target — querying breach checker and Google account API."
+    },
+    {
+      "section": "google_account",
+      "email": "suryakiran561203@gmail.com",
+      "person_id": "113530869506009386761",
+      "verified_email": "suryakiran561203@gmail.com",
+      "full_name": "Surya Kiran",
+      "first_name": "Surya",
+      "last_name": "Kiran",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjWesWZduJRptIsRqJqTTvC6s1a5u1-2l1byX3ava7bckDoC6rk",
+      "is_default_photo": true,
+      "user_types": [
+        "GOOGLE_USER"
+      ],
+      "reachable_apps": [
+        "Youtube",
+        "Photos",
+        "Kaboo",
+        "Maps",
+        "Meet"
+      ],
+      "last_updated": "2026/06/29 11:58:36 (UTC)",
+      "presence": "UNKNOWN",
+      "entity_type": "PERSON",
+      "dnd_state": "AVAILABLE",
+      "customer_id": "",
+      "is_enterprise_user": false,
+      "has_play_games": false,
+      "has_calendar": false,
+      "maps_reviews": [
+        {
+          "place": "ASUS Exclusive Store - Yelahanka",
+          "address": "757, 16 A Main Rd, beside Akshatha Nati Style Hotel, Sector A, Yelahanka Satellite Town, Yelahanka New Town, Bengaluru, Karnataka 560064, India",
+          "rating": 5,
+          "comment": "Great experience\nPrice was reasonable\nExcellent customer support",
+          "date": "2026-04-01",
+          "likes": 0,
+          "link": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sCi9DQUlRQUNvZENodHljRjlvT21ORFNXZzNaRGxHUkZSek9UazJialZDV0ZGWVpYYxAB!2m1!1s0x0:0x5166941b506b7167!3m1!1s2@1:CAIQACodChtycF9oOmNDSWg3ZDlGRFRzOTk2bjVCWFFYZXc%7C%7C?hl=en"
+        }
+      ],
+      "maps_reviews_count": 1,
+      "maps_stats": {
+        "Reviews": 1,
+        "Ratings": 0,
+        "Photos": 0,
+        "Videos": 0,
+        "Captions": 0,
+        "Answers": 0,
+        "Edits": 0,
+        "Reported incorrect": 0,
+        "Places added": 0,
+        "Roads added": 0,
+        "Facts checked": 0,
+        "Q&A": 0
+      },
+      "is_local_guide": true,
+      "local_guide_level": 1,
+      "local_guide_points": 11,
+      "note": "Active Google account found."
+    },
+    {
+      "section": "connected_socials",
+      "query": "suryakiran561203@gmail.com",
+      "profiles": [
+        {
+          "platform": "facebook",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "github",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "google",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "microsoft",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "pinterest",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "spotify",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "twitter",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "discord",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "amazon",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "adobe",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "archiveorg",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "duolingo",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "replit",
+          "status": "found",
+          "source": "email-social-media-checker"
+        }
+      ],
+      "registered_count": 13,
+      "not_registered": [
+        "apple",
+        "ebay",
+        "flickr",
+        "foursquare",
+        "gravatar",
+        "instagram",
+        "lastfm",
+        "linkedin",
+        "myspace",
+        "skype",
+        "tumblr",
+        "vimeo",
+        "weibo",
+        "yahoo",
+        "ok",
+        "kakao",
+        "booking",
+        "airbnb",
+        "qzone",
+        "mailru",
+        "wordpress",
+        "imgur",
+        "disneyplus",
+        "netflix",
+        "jdid",
+        "flipkart",
+        "bukalapak",
+        "lazada",
+        "zoho",
+        "samsung",
+        "evernote",
+        "envato",
+        "patreon",
+        "tokopedia",
+        "rambler",
+        "quora",
+        "atlassian",
+        "aboutme",
+        "altbalaji",
+        "bitmoji",
+        "bodybuilding",
+        "codecademy",
+        "deliveroo",
+        "diigo",
+        "eventbrite",
+        "firefox",
+        "freelancer",
+        "gaana",
+        "giphy",
+        "hubspot",
+        "kommo",
+        "komoot",
+        "nike",
+        "plurk",
+        "rappi",
+        "seoclerks",
+        "snapchat",
+        "snapdeal",
+        "soundcloud",
+        "starz",
+        "strava",
+        "taringa",
+        "tiki",
+        "treehouse",
+        "venmo",
+        "vivino",
+        "vkontakte",
+        "wattpad",
+        "xing",
+        "yandex",
+        "adult_sites"
+      ],
+      "source": "email-social-media-checker"
+    },
+    {
+      "section": "databreach",
+      "email": "suryakiran561203@gmail.com",
+      "is_breached": true,
+      "breach_count": 4,
+      "first_breach": "2024-09-28",
+      "breaches": [
+        {
+          "date": "2024-09-28",
+          "domain": "archive.org",
+          "name": "Internet Archive"
+        },
+        {
+          "date": "2025-02-15",
+          "domain": "",
+          "name": "ALIEN TXTBASE Stealer Logs"
+        },
+        {
+          "date": "2025-04-11",
+          "domain": "",
+          "name": "Synthient Stealer Log Threat Data"
+        },
+        {
+          "date": "2025-04-11",
+          "domain": "",
+          "name": "Synthient Credential Stuffing Threat Data"
+        }
+      ],
+      "breach_names": [
+        "Internet Archive",
+        "ALIEN TXTBASE Stealer Logs",
+        "Synthient Stealer Log Threat Data",
+        "Synthient Credential Stuffing Threat Data"
+      ],
+      "domain_intel": {
+        "acceptAll": false,
+        "created": "1995-08-13 04:00:00",
+        "dmarcEnforced": true,
+        "registered": true,
+        "registeredTo": "Google LLC",
+        "registrar": "MarkMonitor Inc.",
+        "spfStrict": true,
+        "suspiciousTLD": false,
+        "type": "free",
+        "updated": "2025-07-11 10:10:56",
+        "validMX": true,
+        "websiteExists": true
+      },
+      "score": 0,
+      "applied_rules": [
+        "Domain is a free provider. At least 2 online profiles were found. It was involved in at least a data breach"
+      ],
+      "note": "4 breach source(s) found."
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=[REDACTED]",
+      "generated_at": "2026-07-01 08:13Z",
+      "context_used": 3
+    },
+    {
+      "section": "auto_osint_report",
+      "query": "suryakiran561203@gmail.com",
+      "actions_taken": [],
+      "tool_outputs": [],
+      "report": "Report generation failed — GEMINI_API_KEY not configured or Gemini returned no response.",
+      "generated_at": "2026-07-01 08:27Z"
+    }
+  ]
+}

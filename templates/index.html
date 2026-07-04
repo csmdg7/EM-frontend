@@ -1,0 +1,2011 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECHOMARK Intel Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --surface: #0b1326;
+      --surface-dim: #0b1326;
+      --surface-bright: #31394d;
+      --surface-container-lowest: #060e20;
+      --surface-container-low: #131b2e;
+      --surface-container: #171f33;
+      --surface-container-high: #222a3d;
+      --surface-container-highest: #2d3449;
+      --on-surface: #dae2fd;
+      --on-surface-variant: #c1c6d7;
+      --outline: #8b90a0;
+      --outline-variant: #414755;
+      --primary: #adc6ff;
+      --on-primary: #002e69;
+      --secondary: #4edea3;
+      --on-secondary: #003824;
+      --secondary-container: #00a572;
+      --tertiary: #ffb690;
+      --error: #ffb4ab;
+      --background: #0b1326;
+      --on-background: #dae2fd;
+      --surface-variant: #2d3449;
+      --primary-fixed: #d8e2ff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; background: var(--background); color: var(--on-surface); }
+    body { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; overflow: hidden; }
+    #app { height: 100vh; }
+    .font-mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+    .font-display { font-family: 'Hanken Grotesk', sans-serif; }
+
+    .cyber-grid {
+      background-image:
+        linear-gradient(to right, rgba(65,71,85,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(65,71,85,0.08) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-size: 20px; vertical-align: middle; user-select: none;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #060e20; }
+    ::-webkit-scrollbar-thumb { background: #2d3449; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #414755; }
+
+    /* Utility classes */
+    .hidden { display: none !important; }
+    .flex { display: flex; }
+    .flex-col { flex-direction: column; }
+    .flex-1 { flex: 1; }
+    .flex-grow { flex-grow: 1; }
+    .flex-shrink-0 { flex-shrink: 0; }
+    .items-center { align-items: center; }
+    .items-start { align-items: flex-start; }
+    .justify-between { justify-content: space-between; }
+    .justify-end { justify-content: flex-end; }
+    .justify-center { justify-content: center; }
+    .gap-1 { gap: 4px; } .gap-2 { gap: 8px; } .gap-3 { gap: 12px; } .gap-4 { gap: 16px; }
+    .gap-5 { gap: 20px; } .gap-6 { gap: 24px; }
+    .overflow-hidden { overflow: hidden; }
+    .overflow-y-auto { overflow-y: auto; }
+    .min-w-0 { min-width: 0; }
+    .w-full { width: 100%; }
+    .h-full { height: 100%; }
+    .relative { position: relative; }
+    .absolute { position: absolute; }
+    .fixed { position: fixed; }
+    .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+    .z-10 { z-index: 10; }
+    .z-50 { z-index: 50; }
+    .grid { display: grid; }
+    .pointer-events-none { pointer-events: none; }
+    .truncate { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .whitespace-pre-wrap { white-space: pre-wrap; }
+    .leading-relaxed { line-height: 1.625; }
+    .uppercase { text-transform: uppercase; }
+    .italic { font-style: italic; }
+    .cursor-pointer { cursor: pointer; }
+    .select-none { user-select: none; }
+    .opacity-0 { opacity: 0; }
+    .opacity-10 { opacity: 0.1; }
+    .opacity-35 { opacity: 0.35; }
+    .opacity-40 { opacity: 0.4; }
+    .opacity-50 { opacity: 0.5; }
+    .opacity-70 { opacity: 0.7; }
+    .transition-all { transition: all 0.15s ease; }
+    .transition-colors { transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease; }
+    .shrink-0 { flex-shrink: 0; }
+
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+    @keyframes fadeIn { from{opacity:0;transform:scale(0.97)} to{opacity:1;transform:scale(1)} }
+    .animate-pulse { animation: pulse 2s cubic-bezier(.4,0,.6,1) infinite; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    .animate-fade-in { animation: fadeIn 0.2s ease; }
+
+    /* LAYOUT */
+    #portal-layout { display: flex; height: 100vh; overflow: hidden; }
+    #sidebar {
+      width: 280px; min-width: 280px; background: var(--surface-container-lowest);
+      border-right: 1px solid var(--outline-variant);
+      display: flex; flex-direction: column; padding: 32px 0;
+      position: sticky; left: 0; top: 0; height: 100vh;
+    }
+    @media(max-width:768px){ #sidebar { display: none; } }
+    #main-container { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+    /* SIDEBAR */
+    .sidebar-profile { padding: 0 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+    .sidebar-avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--surface-container-high);
+      border: 1px solid var(--outline-variant);
+      overflow: hidden; flex-shrink: 0;
+    }
+    .sidebar-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .sidebar-name { font-family: 'Hanken Grotesk',sans-serif; font-weight: 600; font-size: 14px; color: var(--primary); }
+    .sidebar-username { font-family: monospace; font-size: 10px; color: var(--on-surface-variant); text-transform: uppercase; letter-spacing: 0.1em; }
+    nav.sidebar-nav { flex: 1; padding: 0 16px; display: flex; flex-direction: column; gap: 4px; }
+    .sidebar-footer { padding: 0 16px; margin-top: auto; }
+    .nav-btn {
+      width: 100%; display: flex; align-items: center; gap: 12px;
+      padding: 10px 12px; border-radius: 8px; border: none; background: none;
+      color: var(--on-surface-variant); font-size: 12px; font-weight: 600;
+      cursor: pointer; text-align: left; transition: all 0.15s; position: relative;
+    }
+    .nav-btn:hover { color: var(--on-surface); background: var(--surface-container-high); }
+    .nav-btn.active {
+      background: #1e2d4d; color: var(--primary); font-weight: 700;
+    }
+    .nav-btn.active::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; background: var(--secondary); border-radius: 0 2px 2px 0;
+    }
+
+    /* HEADER */
+    #header {
+      background: var(--surface-container);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: 16px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-shrink: 0; flex-wrap: wrap;
+    }
+    .header-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 18px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: -0.5px; }
+    .header-subtitle { font-size: 11px; color: var(--on-surface-variant); font-family: monospace; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+    .secure-badge { background: rgba(78,222,163,0.1); color: var(--secondary); border: 1px solid rgba(78,222,163,0.2); font-size: 10px; font-family: monospace; padding: 2px 6px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.1em; }
+    .header-controls { display: flex; align-items: center; gap: 12px; }
+    .search-wrap { position: relative; width: 320px; }
+    .search-wrap input {
+      width: 100%; background: var(--surface-container-lowest);
+      border: 1px solid var(--outline-variant); border-radius: 8px;
+      padding: 8px 16px 8px 40px; font-family: monospace; font-size: 12px;
+      color: var(--primary); outline: none; transition: border-color 0.15s;
+    }
+    .search-wrap input::placeholder { color: var(--outline); }
+    .search-wrap input:focus { border-color: var(--primary); }
+    .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--outline); font-size: 20px; }
+    .btn-primary {
+      background: var(--primary); color: var(--on-primary);
+      border: none; border-radius: 8px; padding: 10px 16px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: all 0.15s; white-space: nowrap;
+    }
+    .btn-primary:hover { opacity: 0.9; transform: scale(1.01); }
+    .btn-icon {
+      background: var(--surface-container-high);
+      border: 1px solid rgba(65,71,85,0.6);
+      color: var(--on-surface); border-radius: 8px; padding: 10px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-icon:hover { background: var(--surface-container-highest); border-color: var(--outline); }
+
+    /* VIEWS */
+    #view-login, #view-register { display: none; min-height: 100vh; }
+    #view-login.active, #view-register.active { display: flex; align-items: center; justify-content: center; background: var(--background); position: fixed; inset: 0; z-index: 100; }
+    #portal-layout { display: none; }
+    #portal-layout.active { display: flex; }
+
+    /* LOGIN/REGISTER CARD */
+    .auth-card {
+      background: var(--surface-container-low); border: 1px solid var(--outline-variant);
+      border-radius: 12px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+      width: 480px; max-width: calc(100vw - 32px);
+      position: relative; overflow: hidden;
+    }
+    .auth-card-header {
+      padding: 32px 32px 24px; border-bottom: 1px solid var(--surface-container-high);
+      background: rgba(6,14,32,0.5); text-align: center;
+    }
+    .auth-card-body { padding: 24px 32px 32px; }
+    .auth-logo { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; font-family: 'Hanken Grotesk',sans-serif; font-size: 20px; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+    .auth-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 24px; font-weight: 700; color: var(--on-surface); margin-bottom: 4px; }
+    .auth-subtitle { font-size: 14px; color: var(--on-surface-variant); }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+    .form-label { font-size: 11px; font-weight: 600; color: var(--on-surface-variant); text-transform: uppercase; letter-spacing: 0.08em; display: flex; justify-content: space-between; }
+    .form-label span.code { color: var(--outline-variant); font-family: monospace; }
+    .form-input-wrap { position: relative; }
+    .form-input-wrap .form-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--outline); }
+    .form-input {
+      width: 100%; background: var(--surface-dim);
+      border: 1px solid var(--outline-variant); border-radius: 8px;
+      padding: 12px 16px 12px 44px; font-family: monospace; font-size: 13px;
+      color: var(--primary); outline: none; transition: border-color 0.15s;
+    }
+    .form-input::placeholder { color: var(--outline); }
+    .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 1px var(--primary); }
+    .btn-submit {
+      width: 100%; background: var(--primary); color: var(--on-primary);
+      border: none; border-radius: 8px; padding: 14px;
+      font-size: 13px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all 0.15s; margin-top: 8px;
+    }
+    .btn-submit:hover { opacity: 0.9; transform: scale(1.005); }
+    .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .error-box { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3); color: #f87171; font-size: 12px; font-family: monospace; padding: 10px 12px; border-radius: 6px; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+    .auth-footer { padding: 16px 32px; border-top: 1px solid var(--surface-container-high); background: rgba(6,14,32,0.3); text-align: center; }
+    .auth-link { color: var(--primary); font-weight: 700; background: none; border: none; cursor: pointer; font-size: 14px; }
+    .auth-link:hover { text-decoration: underline; }
+    .system-status { margin-top: 24px; display: flex; justify-content: space-between; font-family: monospace; font-size: 10px; color: var(--outline); text-transform: uppercase; opacity: 0.7; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); display: inline-block; margin-right: 6px; animation: pulse 2s infinite; }
+
+    /* DASHBOARD */
+    #tab-dashboard, #tab-detail, #tab-settings {
+      display: none; flex: 1; overflow: hidden; flex-direction: column;
+    }
+    #tab-dashboard.active, #tab-detail.active, #tab-settings.active {
+      display: flex;
+    }
+    #tab-dashboard { overflow-y: auto; }
+    #tab-settings { overflow-y: auto; }
+    .dashboard-inner { flex: 1; overflow-y: auto; padding: 24px; background: var(--surface-container-lowest); display: flex; flex-direction: column; gap: 24px; }
+
+    /* METRICS */
+    .metrics-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media(max-width:900px){ .metrics-grid { grid-template-columns: repeat(2,1fr); } }
+    .metric-card { background: var(--surface-container); border: 1px solid var(--outline-variant); border-radius: 12px; padding: 16px; display: flex; align-items: center; justify-content: space-between; }
+    .metric-label { font-size: 10px; color: var(--outline); font-family: monospace; text-transform: uppercase; letter-spacing: 0.1em; }
+    .metric-value { font-family: 'Hanken Grotesk',sans-serif; font-size: 28px; font-weight: 700; color: var(--on-surface); margin-top: 4px; }
+
+    /* CASE GRID */
+    .cases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    @media(max-width:1200px){ .cases-grid { grid-template-columns: repeat(2,1fr); } }
+    @media(max-width:768px){ .cases-grid { grid-template-columns: 1fr; } }
+    .case-card {
+      background: var(--surface-container); border: 1px solid var(--outline-variant);
+      border-radius: 12px; padding: 20px; display: flex; flex-direction: column;
+      gap: 16px; position: relative; overflow: hidden; transition: border-color 0.3s;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+    }
+    .case-card:hover { border-color: var(--outline); }
+    .case-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--outline-variant); transition: background 0.3s; }
+    .case-card:hover::before { background: var(--primary); }
+    .case-code { font-size: 10px; color: var(--outline); font-family: monospace; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+    .case-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 15px; font-weight: 700; color: var(--on-surface); margin-top: 4px; transition: color 0.15s; }
+    .case-card:hover .case-title { color: var(--primary); }
+    .priority-badge { font-size: 10px; font-family: monospace; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; }
+    .priority-critical { background: rgba(255,0,0,0.1); color: #f87171; border: 1px solid rgba(255,0,0,0.2); }
+    .priority-high { background: rgba(251,146,60,0.1); color: #fb923c; border: 1px solid rgba(251,146,60,0.2); }
+    .priority-medium { background: rgba(6,182,212,0.1); color: #22d3ee; border: 1px solid rgba(6,182,212,0.2); }
+    .priority-low { background: rgba(100,116,139,0.1); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+    .case-query-box { background: var(--surface-container-lowest); border: 1px solid rgba(65,71,85,0.4); border-radius: 8px; padding: 12px; }
+    .case-query-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .case-query-label { font-size: 10px; color: var(--outline); font-family: monospace; text-transform: uppercase; }
+    .case-type-pill { font-size: 10px; color: var(--primary); font-family: monospace; font-weight: 600; background: rgba(173,198,255,0.1); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+    .case-query-val { font-size: 12px; color: var(--tertiary); font-family: monospace; font-weight: 600; }
+    .case-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; border-top: 1px solid rgba(65,71,85,0.2); }
+    .scan-status { display: flex; align-items: center; gap: 6px; font-family: monospace; font-size: 11px; }
+    .scan-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); animation: pulse 2s infinite; }
+    .scan-spinner { width: 14px; height: 14px; border: 2px solid var(--secondary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+    .scan-label { color: var(--secondary); font-weight: 700; }
+    .case-created { font-size: 10px; color: var(--outline); font-family: monospace; }
+    .case-actions { display: flex; gap: 10px; padding-top: 12px; margin-top: auto; }
+    .btn-analyze {
+      flex: 1; background: rgba(173,198,255,0.1); color: var(--primary);
+      border: 1px solid rgba(173,198,255,0.25); border-radius: 8px;
+      padding: 8px; font-size: 12px; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      transition: all 0.15s;
+    }
+    .btn-analyze:hover { background: rgba(173,198,255,0.2); color: white; }
+    .btn-danger-icon {
+      background: rgba(255,0,0,0.1); color: #f87171; border: 1px solid rgba(255,0,0,0.2);
+      border-radius: 8px; padding: 8px; cursor: pointer; transition: all 0.15s; display: flex;
+    }
+    .btn-danger-icon:hover { background: rgba(255,0,0,0.2); }
+
+    /* EMPTY STATE */
+    .empty-state { flex: 1; border: 1px dashed rgba(65,71,85,0.4); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 48px; text-align: center; background: rgba(23,31,51,0.1); }
+
+    /* TARGET DETAIL */
+    #tab-detail .detail-inner { display: flex; flex-direction: column; flex: 1; overflow: hidden; height: 100%; }
+    .detail-banner {
+      background: var(--surface-container); border-bottom: 1px solid var(--outline-variant);
+      padding: 24px; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 16px; flex-shrink: 0;
+    }
+    .detail-code { font-family: monospace; font-size: 12px; font-weight: 600; color: var(--tertiary); background: rgba(255,182,144,0.1); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+    .detail-status { background: rgba(78,222,163,0.1); color: var(--secondary); border: 1px solid rgba(78,222,163,0.2); font-size: 10px; font-family: monospace; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+    .detail-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 20px; font-weight: 700; color: var(--on-surface); margin-top: 6px; }
+    .detail-query { font-size: 12px; color: var(--on-surface-variant); font-family: monospace; margin-top: 4px; }
+    .detail-query span { color: var(--primary); font-weight: 600; }
+
+    .ai-summary-text { font-size: 12px; color: rgba(193,198,215,0.9); line-height: 1.6; background: rgba(6,14,32,0.5); padding: 16px; border-radius: 8px; border: 1px solid rgba(65,71,85,0.3); }
+    .suspect-card { background: var(--surface-container-low); border: 1px solid rgba(65,71,85,0.55); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
+    .suspect-row { display: flex; justify-content: space-between; font-family: monospace; font-size: 12px; padding: 4px 0; border-bottom: 1px solid rgba(65,71,85,0.2); margin-bottom: 4px; }
+    .suspect-row:last-child { border-bottom: none; margin-bottom: 0; }
+    .suspect-key { color: var(--on-surface-variant); }
+    .suspect-val { color: var(--secondary); font-weight: 700; text-transform: uppercase; }
+
+    /* PROFILES */
+    .profiles-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+    @media(max-width:900px) { .profiles-grid { grid-template-columns: 1fr; } }
+    .profile-card { border: 1px solid rgba(65,71,85,0.6); border-radius: 8px; padding: 16px; transition: all 0.3s; }
+    .profile-card.sherlock { background: rgba(19,46,34,0.2); border-color: rgba(78,222,163,0.4); box-shadow: 0 0 12px rgba(78,222,163,0.08); }
+    .profile-card.sherlock:hover { border-color: var(--secondary); }
+    .profile-card.rapidapi { background: rgba(17,42,69,0.2); border-color: rgba(59,130,246,0.4); box-shadow: 0 0 12px rgba(59,130,246,0.08); }
+    .profile-card.rapidapi:hover { border-color: #3b82f6; }
+    .profile-card.default { background: var(--surface-container-low); }
+    .profile-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 12px; border-bottom: 1px solid rgba(65,71,85,0.2); margin-bottom: 12px; }
+    .profile-platform { font-size: 12px; font-weight: 700; color: var(--on-surface); display: flex; align-items: center; gap: 6px; }
+    .profile-badges { display: flex; align-items: center; gap: 6px; }
+    .badge { font-size: 8px; font-family: monospace; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid; text-transform: uppercase; letter-spacing: 0.1em; }
+    .badge-sherlock { background: rgba(78,222,163,0.1); color: var(--secondary); border-color: rgba(78,222,163,0.2); }
+    .badge-rapidapi { background: rgba(59,130,246,0.1); color: #60a5fa; border-color: rgba(59,130,246,0.2); }
+    .conf-badge { font-size: 10px; font-family: monospace; font-weight: 700; padding: 2px 6px; border-radius: 4px; border: 1px solid; text-transform: uppercase; }
+    .conf-high { background: rgba(78,222,163,0.1); color: var(--secondary); border-color: rgba(78,222,163,0.2); }
+    .conf-med { background: rgba(173,198,255,0.1); color: var(--primary); border-color: rgba(173,198,255,0.2); }
+    .conf-low { background: rgba(251,146,60,0.1); color: #fb923c; border-color: rgba(251,146,60,0.2); }
+    .profile-field { font-family: monospace; font-size: 11px; display: flex; justify-content: space-between; gap: 4px; border-bottom: 1px solid rgba(65,71,85,0.1); padding-bottom: 4px; margin-bottom: 4px; }
+    .profile-field-key { color: var(--outline); text-transform: uppercase; font-size: 10px; flex-shrink: 0; }
+    .profile-field-val { color: var(--on-surface); font-weight: 600; text-align: right; overflow: hidden; text-overflow: ellipsis; }
+    .profile-field-link { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .profile-field-link:hover { text-decoration: underline; }
+
+    /* SENTIMENT */
+    .behavior-bar-wrap { background: var(--surface-container-low); border: 1px solid var(--outline-variant); border-radius: 12px; padding: 16px; }
+    .behavior-bar-track { width: 100%; background: var(--surface-container-lowest); height: 10px; border-radius: 999px; overflow: hidden; border: 1px solid rgba(65,71,85,0.5); margin-top: 8px; }
+    .behavior-bar-fill { height: 100%; background: linear-gradient(to right, var(--primary), #fb923c, #ef4444); border-radius: 999px; transition: width 1s; }
+    .keyword-chip { background: var(--surface-container-lowest); border: 1px solid var(--outline-variant); color: var(--secondary); font-size: 10px; font-family: monospace; font-weight: 700; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+    .caption-item { background: var(--surface-container-lowest); padding: 8px; border-radius: 4px; border: 1px solid rgba(65,71,85,0.3); font-size: 11px; color: var(--on-surface); font-style: italic; display: flex; gap: 8px; }
+    .caption-num { color: var(--primary); font-family: monospace; flex-shrink: 0; }
+
+    /* ANALYTICS */
+    .bar-chart-wrap { height: 176px; display: flex; align-items: flex-end; gap: 6px; background: var(--surface-container-lowest); border: 1px solid rgba(65,71,85,0.3); padding: 16px; border-radius: 8px; }
+    .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; cursor: pointer; }
+    .bar-fill { width: 100%; background: rgba(173,198,255,0.45); border-radius: 4px 4px 0 0; transition: all 0.5s; }
+    .bar-group:hover .bar-fill { background: var(--primary); }
+    .bar-label { font-size: 9px; color: var(--outline); font-family: monospace; }
+    .active-hours-wrap { display: flex; gap: 12px; flex-wrap: wrap; }
+    .active-hour-pill { background: rgba(173,198,255,0.1); color: var(--primary); border: 1px solid rgba(173,198,255,0.2); font-size: 12px; font-family: monospace; font-weight: 700; padding: 4px 10px; border-radius: 4px; }
+
+    /* SETTINGS */
+    .settings-inner { padding: 24px; overflow-y: auto; flex: 1; }
+    .settings-banner { background: var(--surface-container); border: 1px solid var(--outline-variant); border-radius: 12px; padding: 24px; margin-bottom: 24px; display: flex; align-items: center; gap: 16px; position: relative; overflow: hidden; }
+    .settings-banner-icon-bg { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); opacity: 0.05; pointer-events: none; font-size: 120px; }
+    .settings-icon-circle { background: rgba(78,222,163,0.1); color: var(--secondary); border-radius: 50%; padding: 14px; }
+    .settings-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 20px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; }
+    .settings-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; margin-bottom: 24px; }
+    @media(max-width:900px) { .settings-grid { grid-template-columns: 1fr; } }
+    .settings-card { background: var(--surface-container-low); border: 1px solid var(--outline-variant); border-radius: 12px; padding: 20px; }
+    .settings-card-title { font-size: 11px; font-family: monospace; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; padding-bottom: 12px; border-bottom: 1px solid rgba(65,71,85,0.4); }
+    .settings-row { display: flex; justify-content: space-between; font-family: monospace; font-size: 12px; padding: 4px 0; border-bottom: 1px solid rgba(65,71,85,0.2); margin-bottom: 4px; }
+    .settings-row:last-child { border-bottom: none; }
+    .settings-key { color: var(--on-surface-variant); }
+    .settings-val { color: var(--on-surface); font-weight: 600; }
+    .settings-val.green { color: var(--secondary); font-weight: 700; }
+    .settings-val.amber { color: var(--tertiary); font-weight: 700; }
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; padding: 14px; background: var(--surface-container); border-radius: 8px; border: 1px solid rgba(65,71,85,0.5); cursor: pointer; transition: background 0.15s; }
+    .toggle-row:hover { background: var(--surface-container-high); }
+    .toggle-label { font-size: 12px; font-weight: 600; color: var(--on-surface); }
+    .toggle-sub { font-size: 10px; color: var(--on-surface-variant); font-family: monospace; text-transform: uppercase; margin-top: 2px; }
+    .toggle-checkbox { width: 16px; height: 16px; accent-color: var(--primary); cursor: pointer; }
+    .toggles-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; }
+    @media(max-width:900px) { .toggles-grid { grid-template-columns: 1fr; } }
+
+    /* MODALS */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 50;
+      background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center; padding: 16px;
+      animation: fadeIn 0.2s ease;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--surface-container); border: 1px solid var(--outline-variant);
+      border-radius: 12px; max-width: 520px; width: 100%;
+      overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+      max-height: 90vh; display: flex; flex-direction: column;
+    }
+    .modal-header { padding: 24px; border-bottom: 1px solid var(--outline-variant); background: rgba(19,27,46,0.8); display: flex; align-items: center; justify-content: space-between; }
+    .modal-title { font-family: 'Hanken Grotesk',sans-serif; font-size: 18px; font-weight: 700; color: var(--on-surface); text-transform: uppercase; }
+    .modal-subtitle { font-size: 10px; color: var(--on-surface-variant); font-family: monospace; text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+    .modal-close-btn { background: none; border: none; color: var(--on-surface-variant); cursor: pointer; padding: 6px; border-radius: 6px; transition: all 0.15s; display: flex; }
+    .modal-close-btn:hover { background: var(--surface-container-high); color: var(--on-surface); }
+    .modal-body { flex: 1; overflow-y: auto; padding: 24px; }
+    .modal-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .modal-footer { display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid rgba(65,71,85,0.3); }
+    .form-input.readonly { color: var(--tertiary); cursor: not-allowed; border-color: rgba(65,71,85,0.4); }
+    .form-input.no-icon { padding-left: 16px; }
+    .btn-cancel { padding: 8px 16px; border: 1px solid var(--outline-variant); background: none; color: var(--on-surface); font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .btn-cancel:hover { background: rgba(65,71,85,0.3); }
+    .btn-deploy { padding: 8px 20px; background: var(--primary); color: var(--on-primary); border: none; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+    .btn-deploy:hover { opacity: 0.9; }
+    .btn-deploy:disabled { opacity: 0.5; cursor: not-allowed; }
+    .mini-spinner { width: 14px; height: 14px; border: 2px solid var(--on-primary); border-top-color: transparent; border-radius: 50%; animation: spin 1s linear infinite; }
+
+    /* DELETE CONFIRM MODAL */
+    .delete-modal { max-width: 440px; }
+    .delete-modal .modal-header { background: none; }
+    .delete-top-bar { position: absolute; top: 0; left: 0; right: 0; height: 4px; background: #ef4444; animation: pulse 2s infinite; }
+    .delete-icon { background: rgba(255,0,0,0.1); border-radius: 50%; padding: 12px; color: #f87171; }
+    .btn-purge { padding: 8px 16px; background: #dc2626; color: white; border: 1px solid #ef4444; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.15s; }
+    .btn-purge:hover { background: #ef4444; }
+
+    /* CATALOG HEADER */
+    .catalog-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 8px; border-bottom: 1px solid rgba(65,71,85,0.3); margin-bottom: 4px; }
+    .catalog-title { font-size: 12px; font-weight: 700; font-family: monospace; text-transform: uppercase; letter-spacing: 0.1em; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+    .catalog-count { background: rgba(173,198,255,0.1); color: var(--primary); font-size: 10px; padding: 2px 8px; border-radius: 999px; font-family: monospace; }
+
+    .btn-back { background: var(--surface-container-high); border: 1px solid rgba(65,71,85,0.6); color: var(--on-surface); border-radius: 8px; padding: 8px; cursor: pointer; transition: all 0.15s; display: flex; }
+    .btn-back:hover { background: var(--surface-container-highest); border-color: var(--outline); }
+    .btn-danger-text { background: rgba(255,0,0,0.1); color: #f87171; border: 1px solid rgba(255,0,0,0.25); border-radius: 8px; padding: 8px 12px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
+    .btn-danger-text:hover { background: rgba(255,0,0,0.2); }
+
+    /* ============================================================
+       MASTER-DETAIL INTEL PANEL LAYOUT
+       ============================================================ */
+
+    /* Outer wrapper: left nav + right content side by side */
+    .intel-panel-wrap {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      gap: 0;
+    }
+
+    /* LEFT SECTION NAV */
+    .intel-section-nav {
+      width: 240px;
+      min-width: 240px;
+      flex-shrink: 0;
+      background: var(--surface-container-lowest);
+      border-right: 1px solid var(--outline-variant);
+      display: flex;
+      flex-direction: column;
+      padding: 16px 8px;
+      gap: 2px;
+      overflow-y: auto;
+    }
+
+    .intel-nav-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: none;
+      background: none;
+      color: var(--on-surface-variant);
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s;
+      position: relative;
+      white-space: nowrap;
+    }
+    .intel-nav-btn:hover {
+      color: var(--on-surface);
+      background: var(--surface-container-high);
+    }
+    .intel-nav-btn.active {
+      background: rgba(173,198,255,0.1);
+      color: var(--primary);
+      border: 1px solid rgba(173,198,255,0.2);
+    }
+    .intel-nav-btn.active::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--secondary);
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* RIGHT SIDE: single fixed-size panel for the active section only */
+    .intel-detail-panel {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--surface-container);
+      overflow: hidden;     /* the panel itself never scrolls — only its body does */
+    }
+
+    /* Sticky header: section title + icon, never scrolls away */
+    .intel-detail-header {
+      flex-shrink: 0;
+      padding: 16px 24px;
+      font-size: 13px;
+      font-family: monospace;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--primary);
+      background: rgba(6,14,32,0.6);
+      border-bottom: 1px solid var(--outline-variant);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Scrollable body — this is the ONLY part that scrolls when content overflows */
+    .intel-detail-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--surface-container-low);
+    }
+
+    /* Responsive: stack nav above content on narrow screens */
+    @media(max-width:768px) {
+      .intel-panel-wrap { flex-direction: column; }
+      .intel-section-nav {
+        width: 100%; min-width: unset; max-height: 180px;
+        border-right: none; border-bottom: 1px solid var(--outline-variant);
+        flex-direction: row; flex-wrap: wrap; padding: 8px; overflow-x: auto;
+      }
+      .intel-nav-btn { white-space: nowrap; font-size: 10px; padding: 6px 10px; }
+      .intel-detail-header { padding: 12px 16px; }
+      .intel-detail-body { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+
+  <!-- LOGIN VIEW -->
+  <div id="view-login" class="active">
+    <div class="cyber-grid" style="position:absolute;inset:0;z-index:0;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(19,27,46,0.5) 0%,var(--background) 70%);z-index:0;pointer-events:none;"></div>
+    <main style="width:100%;max-width:480px;padding:24px;z-index:10;position:relative;">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <div class="auth-logo"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:28px;">security</span>ECHOMARK</div>
+          <h1 class="auth-title">Officer Login</h1>
+          <p class="auth-subtitle">Authenticate to access</p>
+        </div>
+        <div class="auth-card-body">
+          <div id="login-error" class="error-box hidden">
+            <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+            <span id="login-error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Email</span><span class="code">ID-99</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">fingerprint</span>
+              <input id="login-operatorId" type="text" class="form-input" placeholder="operator@agency.gov" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Password</span><span class="code">KEY-05</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">vpn_key</span>
+              <input id="login-accessCode" type="password" class="form-input" placeholder="••••••••••••" />
+            </div>
+          </div>
+          <button id="login-submit" class="btn-submit">
+            <span class="material-symbols-outlined" style="font-size:18px;">lock_open</span>
+            Login
+          </button>
+          <div style="margin-top:24px;padding-top:24px;border-top:1px solid rgba(65,71,85,0.3);text-align:center;">
+            <p style="font-size:12px;color:var(--on-surface-variant);margin-bottom:12px;">New operative in this sector?</p>
+            <button id="go-to-register" style="background:none;border:none;color:var(--primary);font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;">Register Credentials</button>
+          </div>
+        </div>
+      </div>
+      <div class="system-status" style="margin-top:24px;">
+        <div><span class="status-dot"></span>System Active</div>
+        <div>ECHOMARK TOOLS V1.0.7</div>
+      </div>
+    </main>
+  </div>
+
+  <!-- REGISTER VIEW -->
+  <div id="view-register">
+    <div class="cyber-grid" style="position:absolute;inset:0;z-index:0;pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at top,rgba(19,27,46,0.5) 0%,var(--background) 70%);z-index:0;pointer-events:none;"></div>
+    <main style="width:100%;max-width:480px;padding:24px;z-index:10;position:relative;">
+      <div class="auth-card">
+        <div class="auth-card-header">
+          <div class="auth-logo"><span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:28px;">security</span>ECHOMARK</div>
+          <h1 class="auth-title">Officer Registration</h1>
+          <p class="auth-subtitle">Verify credentials</p>
+        </div>
+        <div class="auth-card-body">
+          <div id="register-error" class="error-box hidden">
+            <span class="material-symbols-outlined" style="font-size:16px;">error</span>
+            <span id="register-error-msg"></span>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Full Name</span><span class="code">REQ-01</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">badge</span>
+              <input id="reg-fullName" type="text" class="form-input" placeholder="Full Name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Username</span><span class="code">REQ-02</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">person</span>
+              <input id="reg-username" type="text" class="form-input" placeholder="USERNAME" style="text-transform:uppercase;letter-spacing:0.1em;" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Email</span><span class="code">REQ-03</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">mail</span>
+              <input id="reg-email" type="email" class="form-input" placeholder="officer@echomark.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label"><span>Password</span><span class="code">REQ-04</span></label>
+            <div class="form-input-wrap">
+              <span class="material-symbols-outlined form-icon">key</span>
+              <input id="reg-password" type="password" class="form-input" placeholder="••••••••••••" />
+            </div>
+            <p style="font-size:10px;color:var(--outline);font-family:monospace;">Must contain alphanumeric + special char.</p>
+          </div>
+          <button id="register-submit" class="btn-submit">
+            Create Account
+            <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward_ios</span>
+          </button>
+        </div>
+        <div class="auth-footer">
+          <p style="font-size:14px;color:var(--on-surface-variant);">Already have an account? <button id="go-to-login" class="auth-link">Log in</button></p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- PORTAL LAYOUT -->
+  <div id="portal-layout">
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDy81PXfZka6IWMzjAHmbR0VtnUmbVpGtzvIFBD09VkMoVxEfB35o9urzFiSG8uWhj9XOanh16XQwjY_0XuVsv9BCAOYRj7AcrKwONlfxwbT8Sje2XlgT1OWOyji7vrx48KAXVUyN3IJWLfCfUlQPCe2-l8ObfB0lou3cdXsd6QrVlS6347BOZUwLpCt_UmAKdeNTZ9WNIPEmRW1lt6YXaOYiUbuV9yjL3lifWXM_pFPCOhy9shLCA53SeMxG8RZmuQ_XRNJ5SwktA" alt="Officer Profile" />
+        </div>
+        <div style="overflow:hidden;">
+          <div class="sidebar-name" id="sidebar-fullname">Agent Alpha</div>
+          <div class="sidebar-username" id="sidebar-username"></div>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-btn active" data-tab="dashboard" onclick="switchTab('dashboard')">
+          <span class="material-symbols-outlined">dashboard</span>Dashboard
+        </button>
+        <button class="nav-btn" data-tab="settings" onclick="switchTab('settings')">
+          <span class="material-symbols-outlined">settings</span>Settings
+        </button>
+        <button class="nav-btn" id="btn-auto-osint" onclick="triggerAutoOsint()" style="color:var(--secondary);margin-top:4px;" title="Run autonomous AI OSINT agent on the current case">
+          <span class="material-symbols-outlined">smart_toy</span>Auto-AI OSINT
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <button class="nav-btn" onclick="handleLogout()">
+          <span class="material-symbols-outlined">logout</span>Logout
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTAINER -->
+    <div id="main-container">
+      <!-- HEADER -->
+      <header id="header">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined animate-pulse" style="color:var(--secondary);font-size:28px;">hub</span>
+          <div>
+            <h1 class="header-title flex items-center gap-2">
+              ECHOMARK INTEL PORTAL
+              <span class="secure-badge">VERIFIED</span>
+            </h1>
+            <p class="header-subtitle">MULTI-TOOL ORCHESTRATED OSINT PLATFORM</p>
+          </div>
+        </div>
+        <div class="header-controls">
+          <div class="search-wrap">
+            <span class="material-symbols-outlined search-icon">search</span>
+            <input type="text" id="search-input" placeholder="Search Target, Case Code, or Query..." oninput="handleSearch(this.value)" />
+          </div>
+          <button class="btn-primary" onclick="openNewCaseModal()">
+            <span class="material-symbols-outlined" style="font-size:16px;">add_circle</span>Create Case
+          </button>
+          <button class="btn-icon" onclick="switchTab('settings')" title="System Configuration">
+            <span class="material-symbols-outlined" style="font-size:18px;">tune</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- DASHBOARD TAB -->
+      <div id="tab-dashboard" class="active">
+        <div class="dashboard-inner">
+          <!-- Metrics -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div><p class="metric-label">Total Cases</p><h4 class="metric-value" id="metric-total">0</h4></div>
+              <span class="material-symbols-outlined opacity-40" style="color:var(--primary);font-size:32px;">hub</span>
+            </div>
+            <div class="metric-card">
+              <div><p class="metric-label">Live Probing</p><h4 class="metric-value" id="metric-scanning" style="color:var(--secondary);">0</h4></div>
+              <span class="material-symbols-outlined animate-pulse opacity-40" style="color:var(--secondary);font-size:32px;">radar</span>
+            </div>
+            <div class="metric-card">
+              <div><p class="metric-label">Completed Scan</p><h4 class="metric-value" id="metric-active">0</h4></div>
+              <span class="material-symbols-outlined opacity-40" style="color:var(--tertiary);font-size:32px;">query_stats</span>
+            </div>
+            <div class="metric-card">
+              <div><p class="metric-label">Purged / Resolved</p><h4 class="metric-value" id="metric-resolved" style="color:var(--on-surface-variant);">0</h4></div>
+              <span class="material-symbols-outlined opacity-40" style="color:var(--outline);font-size:32px;">task_alt</span>
+            </div>
+          </div>
+          <!-- Cases -->
+          <div>
+            <div class="catalog-header" style="margin-bottom:16px;">
+              <div class="catalog-title"><span>Dossier Intelligence Catalog</span><span class="catalog-count" id="catalog-count">0 Loaded</span></div>
+              <span id="search-filter-label" style="font-size:11px;color:var(--on-surface-variant);font-family:monospace;text-transform:uppercase;display:none;"></span>
+            </div>
+            <div id="cases-grid" class="cases-grid"></div>
+            <div id="empty-state" class="empty-state hidden">
+              <span class="material-symbols-outlined opacity-35" style="color:var(--outline);font-size:52px;">folder_open</span>
+              <h4 style="font-size:14px;font-weight:600;color:var(--on-surface);margin:12px 0 4px;">No Intel Vectors Found</h4>
+              <p style="font-size:12px;color:var(--on-surface-variant);max-width:300px;margin-bottom:20px;">No case databases matching the current parameters. Initiate a new scan.</p>
+              <button class="btn-primary" onclick="openNewCaseModal()">
+                <span class="material-symbols-outlined" style="font-size:16px;">sensors</span>Initialize Vector
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DETAIL TAB -->
+      <div id="tab-detail">
+        <div class="detail-inner" id="detail-inner" style="height:100%;"></div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div id="tab-settings">
+        <div class="settings-inner">
+          <div class="settings-banner">
+            <div class="settings-banner-icon-bg material-symbols-outlined">terminal</div>
+            <div class="settings-icon-circle">
+              <span class="material-symbols-outlined" style="font-size:32px;">shield_person</span>
+            </div>
+            <div>
+              <h2 class="settings-title">Operator System Settings</h2>
+              <p style="font-size:12px;color:var(--on-surface-variant);font-family:monospace;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px;">
+                Sector Node: <span id="settings-operator-id">STANDBY</span> | Security Status: Verified
+              </p>
+            </div>
+          </div>
+          <div class="settings-grid">
+            <div class="settings-card">
+              <div class="settings-card-title"><span class="material-symbols-outlined" style="font-size:20px;color:var(--primary);">badge</span>Operative Profile Card</div>
+              <div class="settings-row"><span class="settings-key">FULL NAME:</span><span class="settings-val" id="settings-fullname">N/A</span></div>
+              <div class="settings-row"><span class="settings-key">USERNAME:</span><span class="settings-val green" id="settings-username">N/A</span></div>
+              <div class="settings-row"><span class="settings-key">OPERATOR EMAIL:</span><span class="settings-val" id="settings-email">N/A</span></div>
+              <div class="settings-row"><span class="settings-key">ACCESS LEVEL:</span><span class="settings-val amber">LEVEL-03 DIRECT</span></div>
+            </div>
+            <div class="settings-card">
+              <div class="settings-card-title"><span class="material-symbols-outlined" style="font-size:20px;color:var(--primary);">dns</span>Environment Node Diagnostics</div>
+              <div class="settings-row"><span class="settings-key">STORAGE ENGINE:</span><span class="settings-val green">SPLIT-FILE JSON</span></div>
+              <div class="settings-row"><span class="settings-key">OSINT WORKER STACK:</span><span class="settings-val green">ONLINE</span></div>
+              <div class="settings-row"><span class="settings-key">SHERLOCK PROBER:</span><span class="settings-val green">v8.3 INTEGRATED</span></div>
+              <div class="settings-row"><span class="settings-key">COMPRESSION RATIO:</span><span class="settings-val">SHA-256 VERIFIED</span></div>
+            </div>
+          </div>
+          <div class="settings-card">
+            <div class="settings-card-title"><span class="material-symbols-outlined" style="font-size:20px;color:var(--primary);">toggle_on</span>Global Extraction Pipeline Switches</div>
+            <div class="toggles-grid">
+              <label class="toggle-row"><div><div class="toggle-label">Automated AI Summaries</div><div class="toggle-sub">Use Gemini context builders</div></div><input type="checkbox" checked class="toggle-checkbox"/></label>
+              <label class="toggle-row"><div><div class="toggle-label">Real-time Sherlock Probe</div><div class="toggle-sub">Poll active social handles</div></div><input type="checkbox" checked class="toggle-checkbox"/></label>
+              <label class="toggle-row"><div><div class="toggle-label">Sentiment Verdict Extraction</div><div class="toggle-sub">Extract sentiment profiles</div></div><input type="checkbox" checked class="toggle-checkbox"/></label>
+              <label class="toggle-row"><div><div class="toggle-label">Full DNS Routing Trace</div><div class="toggle-sub">Perform deep domain lookups</div></div><input type="checkbox" class="toggle-checkbox"/></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEW CASE MODAL -->
+  <div class="modal-overlay" id="modal-new-case">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="flex items-center gap-3">
+          <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;font-size:28px;color:var(--primary);">radar</span>
+          <div>
+            <div class="modal-title">Initialize Case Vector</div>
+            <div class="modal-subtitle">SECURE NODE EXCLUSIONS DETECTED</div>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="closeNewCaseModal()"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-row-2">
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Vector Code Reference</label>
+            <input id="nc-code" type="text" class="form-input no-icon readonly" readonly style="color:var(--tertiary);cursor:not-allowed;" />
+          </div>
+          <div class="form-group" style="margin-bottom:0;">
+            <label class="form-label">Scan Priority Rating</label>
+            <select id="nc-priority" class="form-input no-icon">
+              <option value="Low">Low</option>
+              <option value="Medium">Medium</option>
+              <option value="High / Alpha" selected>High / Alpha</option>
+              <option value="Critical / Delta">Critical / Delta</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:16px;">
+          <label class="form-label"><span>Investigation / Target Title</span><span class="code">REQ-01</span></label>
+          <input id="nc-title" type="text" class="form-input no-icon" placeholder="e.g. Operation Chimera Target Track" />
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span>Query Target Subnet Type</span><span class="code">REQ-02</span></label>
+          <select id="nc-type" class="form-input no-icon">
+            <option value="" disabled selected>Select query type...</option>
+            <option value="username">Username</option>
+            <option value="email">Email</option>
+            <option value="phone">Phone Number</option>
+            <option value="alias/name">Alias / Name</option>
+            <option value="instagram">Instagram</option>
+            <option value="facebook">Facebook</option>
+            <option value="twitter">X / Twitter</option>
+            <option value="website">Website Domain / IP</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label"><span>Search Query / Identifier</span><span class="code">REQ-03</span></label>
+          <input id="nc-query" type="text" class="form-input no-icon font-mono" placeholder="Enter handle, IP address, email, phone..." />
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" onclick="closeNewCaseModal()">Cancel</button>
+          <button id="nc-submit" class="btn-deploy" onclick="deployCase()">
+            <span class="material-symbols-outlined" style="font-size:16px;">sensors</span> Deploy Active Case
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELETE CONFIRM MODAL -->
+  <div class="modal-overlay" id="modal-delete">
+    <div class="modal-box delete-modal">
+      <div class="modal-header" style="position:relative;overflow:hidden;">
+        <div class="delete-top-bar"></div>
+        <div class="flex items-center gap-4">
+          <div class="delete-icon"><span class="material-symbols-outlined" style="font-size:24px;">warning</span></div>
+          <div>
+            <div class="modal-title">Confirm Purge Request</div>
+            <div class="modal-subtitle">Vector Code: <span id="delete-code-label"></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:14px;color:rgba(193,198,215,0.9);line-height:1.6;margin-bottom:24px;">
+          You are about to initiate a terminal delete for case <span id="delete-code-text" style="font-family:monospace;color:#f87171;font-weight:700;"></span>.
+          This operation is irreversible and will permanently purge all associated digital profile maps, communication logs, and intelligence datasets.
+        </p>
+        <div class="modal-footer">
+          <button class="btn-cancel" onclick="closeDeleteModal()">Cancel</button>
+          <button class="btn-purge" onclick="confirmDelete()">
+            <span class="material-symbols-outlined" style="font-size:16px;">delete_forever</span>Confirm Purge
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+console.log("[ECHOMARK][index.html] Script start — ECHOMARK frontend initializing");
+
+// ============================================================
+// STATE
+// ============================================================
+let operator = null;
+let cases = [];
+let selectedCase = null;
+let searchFilter = "";
+let deleteTargetCode = null;
+let pollInterval = null;
+let currentTab = "dashboard";
+
+// ============================================================
+// AUTH & SESSION
+// ============================================================
+async function init() {
+  console.log("[ECHOMARK][init] Checking for existing session token...");
+  const token = localStorage.getItem("echomark_jwt");
+  if (token) {
+    try {
+      const res = await fetch("/api/auth/me", { headers: { Authorization: `Bearer ${token}` } });
+      if (res.ok) {
+        operator = await res.json();
+        console.log(`[ECHOMARK][init] Session valid — operator='${operator.username}'`);
+        showPortal();
+        return;
+      }
+      console.warn("[ECHOMARK][init] Token rejected by server — clearing");
+    } catch (e) {
+      console.error("[ECHOMARK][init] /api/auth/me failed:", e);
+    }
+    localStorage.removeItem("echomark_jwt");
+  } else {
+    console.log("[ECHOMARK][init] No token found — showing login");
+  }
+  showLogin();
+}
+
+function showLogin() {
+  console.log("[ECHOMARK][showLogin] Switching to login view");
+  document.getElementById("view-login").classList.add("active");
+  document.getElementById("view-register").classList.remove("active");
+  document.getElementById("portal-layout").classList.remove("active");
+  stopPolling();
+}
+function showRegister() {
+  console.log("[ECHOMARK][showRegister] Switching to register view");
+  document.getElementById("view-login").classList.remove("active");
+  document.getElementById("view-register").classList.add("active");
+  document.getElementById("portal-layout").classList.remove("active");
+}
+function showPortal() {
+  console.log(`[ECHOMARK][showPortal] Entering portal — operator='${operator?.username}'`);
+  document.getElementById("view-login").classList.remove("active");
+  document.getElementById("view-register").classList.remove("active");
+  document.getElementById("portal-layout").classList.add("active");
+  updateSidebarProfile();
+  updateSettingsPanel();
+  fetchCases();
+  startPolling();
+}
+function handleLogout() {
+  console.log("[ECHOMARK][handleLogout] Logging out — clearing session");
+  localStorage.removeItem("echomark_jwt");
+  operator = null; cases = []; selectedCase = null;
+  stopPolling();
+  showLogin();
+}
+
+// LOGIN
+document.getElementById("go-to-register").onclick = showRegister;
+document.getElementById("go-to-login").onclick = showLogin;
+document.getElementById("login-submit").onclick = async function() {
+  const operatorId = document.getElementById("login-operatorId").value.trim();
+  const accessCode = document.getElementById("login-accessCode").value.trim();
+  if (!operatorId || !accessCode) return;
+  this.disabled = true;
+  this.innerHTML = '<span class="mini-spinner"></span> Authenticating...';
+  document.getElementById("login-error").classList.add("hidden");
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ operatorId, accessCode })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Authentication failed");
+    localStorage.setItem("echomark_jwt", data.token);
+    operator = data.user;
+    setTimeout(() => { showPortal(); }, 600);
+  } catch (err) {
+    document.getElementById("login-error").classList.remove("hidden");
+    document.getElementById("login-error-msg").textContent = err.message;
+    this.disabled = false;
+    this.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">lock_open</span> Establish Secure Uplink';
+  }
+};
+document.getElementById("register-submit").onclick = async function() {
+  const fullName = document.getElementById("reg-fullName").value.trim();
+  const username = document.getElementById("reg-username").value.trim();
+  const email = document.getElementById("reg-email").value.trim();
+  const encryptionKey = document.getElementById("reg-password").value.trim();
+  if (!fullName || !username || !email || !encryptionKey) return;
+  this.disabled = true;
+  this.innerHTML = 'Creating Security Tunnel... <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward_ios</span>';
+  document.getElementById("register-error").classList.add("hidden");
+  try {
+    const res = await fetch("/api/auth/register", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fullName, username, email, encryptionKey })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Registration failed");
+    localStorage.setItem("echomark_jwt", data.token);
+    operator = data.user;
+    setTimeout(() => { showPortal(); }, 800);
+  } catch (err) {
+    document.getElementById("register-error").classList.remove("hidden");
+    document.getElementById("register-error-msg").textContent = err.message;
+    this.disabled = false;
+    this.innerHTML = 'Create Account <span class="material-symbols-outlined" style="font-size:14px;">arrow_forward_ios</span>';
+  }
+};
+
+// ============================================================
+// TABS & NAVIGATION
+// ============================================================
+function switchTab(tab) {
+  console.log(`[ECHOMARK][switchTab] → ${tab}`);
+  currentTab = tab;
+  ["dashboard","detail","settings"].forEach(t => {
+    document.getElementById(`tab-${t}`).classList.remove("active");
+  });
+  document.getElementById(`tab-${tab}`).classList.add("active");
+  document.querySelectorAll(".nav-btn[data-tab]").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.tab === tab);
+  });
+}
+
+// ============================================================
+// CASES
+// ============================================================
+async function fetchCases() {
+  try {
+    console.log("[ECHOMARK][fetchCases] Fetching /api/cases...");
+    const res = await fetch("/api/cases");
+    if (!res.ok) { console.warn("[ECHOMARK][fetchCases] Non-OK response:", res.status); return; }
+    const ct = res.headers.get("content-type") || "";
+    if (!ct.includes("application/json")) { console.warn("[ECHOMARK][fetchCases] Non-JSON response"); return; }
+    const data = await res.json();
+    cases = data;
+    console.log(`[ECHOMARK][fetchCases] Loaded ${cases.length} cases`);
+    renderDashboard();
+    if (selectedCase) {
+      const updated = cases.find(c => c.code === selectedCase.code);
+      if (updated && JSON.stringify(updated) !== JSON.stringify(selectedCase)) {
+        console.log(`[ECHOMARK][fetchCases] Case ${selectedCase.code} updated — re-rendering detail`);
+        selectedCase = updated;
+        if (currentTab === "detail") renderDetail();
+      }
+    }
+  } catch(e) { console.error("[ECHOMARK][fetchCases] ERROR:", e); }
+}
+function startPolling() {
+  console.log("[ECHOMARK][startPolling] Polling started — interval 3s");
+  pollInterval = setInterval(fetchCases, 3000);
+}
+function stopPolling() {
+  if (pollInterval) {
+    clearInterval(pollInterval);
+    console.log("[ECHOMARK][stopPolling] Polling stopped");
+  }
+}
+
+// ============================================================
+// DASHBOARD RENDER
+// ============================================================
+function handleSearch(val) {
+  searchFilter = val;
+  renderDashboard();
+}
+function renderDashboard() {
+  const filtered = cases.filter(c => {
+    if (!searchFilter.trim()) return true;
+    const q = searchFilter.toLowerCase();
+    return c.title?.toLowerCase().includes(q) || c.code?.toLowerCase().includes(q) ||
+           c.query?.toLowerCase().includes(q) || c.type?.toLowerCase().includes(q);
+  });
+
+  document.getElementById("metric-total").textContent = cases.length;
+  const scanning = cases.filter(c => c.searchStatus && c.searchStatus !== "Completed" && c.searchStatus !== "Pending").length;
+  document.getElementById("metric-scanning").textContent = scanning;
+  document.getElementById("metric-active").textContent = cases.filter(c => c.status === "Active").length;
+  document.getElementById("metric-resolved").textContent = cases.filter(c => c.status === "Resolved").length;
+  document.getElementById("catalog-count").textContent = `${filtered.length} Loaded`;
+
+  const filterLabel = document.getElementById("search-filter-label");
+  if (searchFilter) { filterLabel.style.display = ""; filterLabel.textContent = `Filter Active: "${searchFilter}"`; }
+  else filterLabel.style.display = "none";
+
+  const grid = document.getElementById("cases-grid");
+  const empty = document.getElementById("empty-state");
+
+  if (filtered.length === 0) {
+    grid.innerHTML = "";
+    empty.classList.remove("hidden");
+  } else {
+    empty.classList.add("hidden");
+    grid.innerHTML = filtered.map(c => renderCaseCard(c)).join("");
+  }
+}
+function getPriorityClass(p) {
+  if (!p) return "priority-low";
+  const l = p.toLowerCase();
+  if (l.includes("critical")) return "priority-critical";
+  if (l.includes("high")) return "priority-high";
+  if (l.includes("medium")) return "priority-medium";
+  return "priority-low";
+}
+function renderCaseCard(c) {
+  const isScanning = c.searchStatus && c.searchStatus !== "Completed" && c.searchStatus !== "Pending";
+  const statusHtml = isScanning
+    ? `<span class="scan-spinner"></span><span class="scan-label" style="font-size:11px;">${escHtml(c.searchStatus)}</span>`
+    : `<span class="scan-dot"></span><span style="color:var(--secondary);font-size:11px;">Ready / Monitored</span>`;
+  return `
+  <div class="case-card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+      <div>
+        <div class="case-code">${escHtml(c.code)}</div>
+        <div class="case-title">${escHtml(c.title)}</div>
+      </div>
+      <span class="priority-badge ${getPriorityClass(c.priority)}">${escHtml(c.priority)}</span>
+    </div>
+    <div class="case-query-box">
+      <div class="case-query-row">
+        <span class="case-query-label">TARGET CHANNEL:</span>
+        <span class="case-type-pill">${escHtml(c.type)}</span>
+      </div>
+      <div class="case-query-row" style="margin-bottom:0;">
+        <span class="case-query-label">TARGET QUERY:</span>
+        <span class="case-query-val" style="max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;" title="${escHtml(c.query)}">${escHtml(c.query)}</span>
+      </div>
+    </div>
+    <div class="case-footer">
+      <div class="scan-status">${statusHtml}</div>
+      <span class="case-created">${escHtml(c.created)}</span>
+    </div>
+    <div class="case-actions">
+      <button class="btn-analyze" onclick="selectCase('${escHtml(c.code)}')">
+        <span class="material-symbols-outlined" style="font-size:16px;">visibility</span>Analyze Dossier
+      </button>
+      <button class="btn-danger-icon" onclick="openDeleteModal('${escHtml(c.code)}')" title="Purge Intel Database">
+        <span class="material-symbols-outlined" style="font-size:18px;">delete</span>
+      </button>
+    </div>
+  </div>`;
+}
+function selectCase(code) {
+  console.log(`[ECHOMARK][selectCase] code=${code}`);
+  selectedCase = cases.find(c => c.code === code) || null;
+  if (selectedCase) {
+    console.log(`[ECHOMARK][selectCase] Found — sections=${(selectedCase.sections||[]).length} type='${selectedCase.type}'`);
+    switchTab("detail");
+    renderDetail();
+  } else {
+    console.warn(`[ECHOMARK][selectCase] Case ${code} not found in local cache`);
+  }
+}
+
+// ============================================================
+// DETAIL HELPERS — icons, dropdown, placeholder
+// ============================================================
+
+const SECTION_ICONS = {
+  "BASIC INFO":                       "person_search",
+  "CONNECTED SOCIALS":                "hub",
+  "DATABREACH":                       "lock_open",
+  "ONLINE PRESENCE (BY AI)":          "psychology",
+  "DORKING":                          "travel_explore",
+  "GALLERY":                          "photo_library",
+  "RELATED PLATFORMS":                "hub",
+  "RELATED ACCOUNTS (80% ACCURATE)":  "group_add",
+  "ANALYTICS":                        "analytics",
+  "SENTIMENT ANALYSIS & BEHAVIOR":    "sentiment_satisfied",
+  "MEDIA INTELLIGENCE TOOL":          "perm_media",
+  "FOLLOWERS / FOLLOWING / FRIENDS":  "diversity_3",
+  "CORRELATION TOOL":                 "scatter_plot",
+  "REVERSE IMAGE SEARCH":             "image_search",
+  "POSSIBLE FAKE ACCOUNT":            "how_to_reg",
+  "AI SUMMARY":                       "auto_awesome",
+  "AUTO-AI REPORT":                   "smart_toy",
+  "DNS / DOMAIN":                     "dns",
+  "INSTAGRAM":                        "photo_camera",
+  "GOOGLE ACCOUNT":                   "badge",
+  "MAPS REVIEWS":                     "rate_review",
+  "FACEBOOK":                         "group",
+  "TWITTER / X":                      "chat",
+  "LOGS":                             "terminal",
+};
+
+let activeSectionId = null;
+let currentSectionsList = [];   // populated by renderDetail(), read by activateSection()
+
+function emptyPlaceholder(icon, text, subtext) {
+  return `
+  <div style="padding:32px;border:1px dashed rgba(65,71,85,0.4);border-radius:12px;text-align:center;">
+    <span class="material-symbols-outlined opacity-35" style="color:var(--outline);font-size:42px;display:block;margin-bottom:12px;">${icon}</span>
+    <p style="font-size:14px;font-weight:600;color:var(--on-surface);">${text}</p>
+    <p style="font-size:11px;color:var(--on-surface-variant);font-family:monospace;text-transform:uppercase;margin-top:6px;">${subtext}</p>
+  </div>`;
+}
+
+/** Swap the right-hand panel to show the chosen section. No DOM rebuild — just innerHTML + scroll-to-top. */
+function activateSection(sectionKey) {
+  console.log(`[ECHOMARK][activateSection] → ${sectionKey}`);
+  activeSectionId = sectionKey;
+
+  document.querySelectorAll(".intel-nav-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.dataset.section === sectionKey);
+  });
+
+  const match = currentSectionsList.find(s => s.key === sectionKey);
+  const headerEl = document.getElementById("intel-detail-header");
+  const bodyEl   = document.getElementById("intel-detail-body");
+  if (!match || !headerEl || !bodyEl) {
+    console.warn(`[ECHOMARK][activateSection] No panel match for '${sectionKey}'`);
+    return;
+  }
+
+  const icon = SECTION_ICONS[match.key] || "info";
+  headerEl.innerHTML = `<span class="material-symbols-outlined" style="font-size:18px;">${icon}</span><span>${escHtml(match.key)}</span>`;
+  bodyEl.innerHTML = match.html;
+  bodyEl.scrollTop = 0;   // reset scroll position on every section switch
+}
+
+// ============================================================
+// SECTION DATA RENDERERS — consume new sections[] JSON schema
+// ============================================================
+
+/** Find a section by name from cv.sections array (case-insensitive) */
+function getSection(cv, name) {
+  const sections = cv.sections || [];
+  return sections.find(s => s.section && s.section.toLowerCase() === name.toLowerCase()) || null;
+}
+
+/** Render a generic key-value table from any plain object */
+function renderKV(obj, skipKeys = ["section", "note", "source", "query"]) {
+  const entries = Object.entries(obj).filter(([k]) => !skipKeys.includes(k));
+  if (entries.length === 0) return `<p style="font-size:12px;color:var(--on-surface-variant);font-style:italic;">No data.</p>`;
+  return `<div style="display:flex;flex-direction:column;gap:4px;">` + entries.map(([k, v]) => {
+    const label = k.replace(/_/g," ").toUpperCase();
+    const display = Array.isArray(v)
+      ? (v.length ? `<div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">${v.map(x => `<span style="background:var(--surface-container-lowest);border:1px solid var(--outline-variant);color:var(--secondary);font-size:10px;font-family:monospace;padding:2px 8px;border-radius:4px;">${escHtml(String(x))}</span>`).join("")}</div>` : "—")
+      : `<span style="color:var(--on-surface);font-weight:600;font-family:monospace;font-size:12px;">${escHtml(String(v ?? "—"))}</span>`;
+    return `<div class="suspect-row"><span class="suspect-key">${escHtml(label)}:</span>${display}</div>`;
+  }).join("") + `</div>`;
+}
+
+/** Render the BASIC INFO section */
+function renderBasicSection(cv) {
+  const sec = getSection(cv, "basic");
+  const rows = [];
+
+  // Always show query + type
+  rows.push(`<div class="suspect-card" style="margin-bottom:12px;">
+    <div class="suspect-row"><span class="suspect-key">QUERY:</span><span style="color:var(--secondary);font-weight:700;font-family:monospace;">${escHtml(cv.query || "—")}</span></div>
+    <div class="suspect-row"><span class="suspect-key">TYPE:</span><span style="color:var(--primary);font-weight:600;">${escHtml(cv.type || "—")}</span></div>
+    <div class="suspect-row"><span class="suspect-key">CREATED:</span><span style="color:var(--on-surface);font-family:monospace;font-size:11px;">${escHtml(cv.created || "—")}</span></div>
+    <div class="suspect-row"><span class="suspect-key">PRIORITY:</span><span style="color:var(--tertiary);font-weight:600;">${escHtml(cv.priority || "—")}</span></div>
+    <div class="suspect-row" style="border-bottom:none;margin-bottom:0;"><span class="suspect-key">OBJECTIVE:</span><span style="color:var(--on-surface-variant);font-size:11px;line-height:1.5;">${escHtml(cv.objective || "—")}</span></div>
+  </div>`);
+
+  if (sec && sec.notes && sec.notes !== "Scan in progress...") {
+    rows.push(`<div style="font-size:11px;color:var(--outline);font-family:monospace;margin-top:8px;">${escHtml(sec.notes)}</div>`);
+  }
+
+  // LOGS inside basic
+  if (cv.logs && cv.logs.length) {
+    const logsHtml = cv.logs.slice(0, 10).map(l =>
+      `<div style="font-family:monospace;font-size:10px;color:var(--on-surface-variant);padding:4px 0;border-bottom:1px solid rgba(65,71,85,0.15);">${escHtml(l)}</div>`
+    ).join("");
+    rows.push(`<div style="margin-top:12px;">
+      <div style="font-size:10px;font-family:monospace;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--outline);margin-bottom:8px;">Activity Logs (latest 10)</div>
+      ${logsHtml}
+    </div>`);
+  }
+
+  return rows.join("");
+}
+
+/** Render CONNECTED SOCIALS section (from sherlock profiles array) */
+function renderConnectedSocials(cv) {
+  const sec = getSection(cv, "connected_socials");
+  if (!sec) return emptyPlaceholder("hub", "No Connected Socials Data", "Run OSINT scan to discover linked social profiles.");
+
+  const profiles = sec.profiles || [];
+  const sourceLabel = sec.source === "email-social-media-checker" ? "Email Social Checker Results" : "Sherlock Probe Results";
+  const header = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid rgba(65,71,85,0.3);">
+    <span style="font-size:11px;font-family:monospace;color:var(--outline);text-transform:uppercase;">${escHtml(sourceLabel)}</span>
+    <span style="font-size:11px;font-family:monospace;color:var(--secondary);font-weight:700;">${profiles.length} platform${profiles.length !== 1 ? "s" : ""} found</span>
+  </div>`;
+
+  if (profiles.length === 0) {
+    const note = sec.note || "No social profiles found.";
+    return header + emptyPlaceholder("running_with_errors", "No Profiles Found", note);
+  }
+
+  const cards = profiles.map(p => `
+  <div style="background:rgba(19,46,34,0.2);border:1px solid rgba(78,222,163,0.3);border-radius:8px;padding:12px;display:flex;flex-direction:column;gap:4px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <span style="font-size:12px;font-weight:700;color:var(--secondary);">${escHtml(p.platform || "Unknown")}</span>
+      <span style="font-size:9px;font-family:monospace;background:rgba(78,222,163,0.1);color:var(--secondary);border:1px solid rgba(78,222,163,0.2);padding:1px 6px;border-radius:3px;">FOUND</span>
+    </div>
+    ${p.url ? `<a href="${escHtml(p.url)}" target="_blank" rel="noopener noreferrer" style="font-family:monospace;font-size:10px;color:var(--primary);text-decoration:none;word-break:break-all;">${escHtml(p.url)}</a>` : ""}
+    <span style="font-size:9px;font-family:monospace;color:var(--outline);text-transform:uppercase;">Source: ${escHtml(p.source || "sherlock")}</span>
+  </div>`).join("");
+
+  return header + `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">${cards}</div>`;
+}
+
+/** Render DATABREACH section */
+function renderDatabreach(cv) {
+  const sec = getSection(cv, "databreach");
+  if (!sec) return emptyPlaceholder("lock_open", "No Databreach Data", "Initiate deep web scan for leaked credentials.");
+  const breaches = sec.breaches || [];
+  const note = sec.note || "";
+  if (breaches.length === 0) {
+    return `<div style="display:flex;flex-direction:column;gap:12px;">
+      ${emptyPlaceholder("lock_open", "No Breaches Found", note || "Target does not appear in known breach databases.")}
+    </div>`;
+  }
+  return `<div style="display:flex;flex-direction:column;gap:8px;">` +
+    breaches.map(b => `<div class="suspect-card">${renderKV(b, ["section"])}</div>`).join("") +
+    `</div>`;
+}
+
+/** Render DORKING section */
+function renderDorking(cv) {
+  const sec = getSection(cv, "dorking");
+  if (!sec) return emptyPlaceholder("travel_explore", "No Dork Queries Generated", "Run OSINT scan to generate dorking queries.");
+  const queries = sec.queries || [];
+  if (queries.length === 0) return emptyPlaceholder("travel_explore", "No Dork Queries", sec.note || "");
+  return `<div style="display:flex;flex-direction:column;gap:8px;">
+    <div style="font-size:11px;color:var(--outline);font-family:monospace;margin-bottom:8px;">${escHtml(sec.note || "Copy and run these queries in Google / Bing / DuckDuckGo.")}</div>
+    ${queries.map((q, i) => `
+    <div style="background:var(--surface-container-lowest);border:1px solid rgba(65,71,85,0.4);border-radius:6px;padding:10px 14px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:9px;font-family:monospace;color:var(--outline);min-width:24px;">[${i+1}]</span>
+      <code style="font-family:monospace;font-size:12px;color:var(--tertiary);flex:1;word-break:break-all;">${escHtml(q)}</code>
+      <button onclick="navigator.clipboard.writeText('${escHtml(q).replace(/'/g,"&#39;")}');this.textContent='✓';" style="background:none;border:none;color:var(--outline);cursor:pointer;font-size:14px;padding:2px 6px;border-radius:4px;transition:color 0.15s;" title="Copy">⧉</button>
+    </div>`).join("")}
+  </div>`;
+}
+
+/** Render AI SUMMARY section */
+function renderAiSummary(cv) {
+  const sec = getSection(cv, "ai_summary");
+  if (!sec || !sec.summary) {
+    const fallback = cv.aiSummary || "";
+    if (!fallback) return emptyPlaceholder("psychology", "AI Summary Unavailable", "GEMINI_API_KEY not configured or scan in progress.");
+    return `<div class="ai-summary-text" style="font-size:13px;">${escHtml(fallback)}</div>`;
+  }
+  return `<div style="display:flex;flex-direction:column;gap:12px;">
+    <div class="ai-summary-text" style="font-size:13px;">${escHtml(sec.summary)}</div>
+    ${sec.generated_at ? `<div style="font-size:10px;font-family:monospace;color:var(--outline);">Generated: ${escHtml(sec.generated_at)}</div>` : ""}
+  </div>`;
+}
+
+/** Render GALLERY section */
+function renderGallery(cv) {
+  const sec = getSection(cv, "gallery");
+  if (!sec) return emptyPlaceholder("photo_library", "No Media Extracted", "Profile image scrape in progress.");
+  const images = sec.images || [];
+  if (images.length === 0) return emptyPlaceholder("photo_library", "Gallery Empty", sec.note || "No images found.");
+  return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;">` +
+    images.map(img => `<img src="${escHtml(img.url || img)}" alt="Gallery" style="width:100%;border-radius:8px;border:1px solid var(--outline-variant);" />`).join("") +
+    `</div>`;
+}
+
+/** Render RELATED PLATFORMS section */
+function renderRelatedPlatforms(cv) {
+  const sec = getSection(cv, "related_platforms");
+  if (!sec) return emptyPlaceholder("hub", "No Related Platforms", "Run OSINT scan to discover linked accounts.");
+  const platforms = sec.platforms || [];
+  if (platforms.length === 0) return emptyPlaceholder("hub", "No Related Platforms Found", sec.note || "Sherlock found no matching handles.");
+  const cards = platforms.map(p => `
+  <div style="background:rgba(19,46,34,0.2);border:1px solid rgba(78,222,163,0.3);border-radius:8px;padding:12px;">
+    <div style="font-size:12px;font-weight:700;color:var(--secondary);margin-bottom:4px;">${escHtml(p.platform || "Unknown")}</div>
+    ${p.url ? `<a href="${escHtml(p.url)}" target="_blank" rel="noopener noreferrer" style="font-family:monospace;font-size:10px;color:var(--primary);text-decoration:none;word-break:break-all;">${escHtml(p.url)}</a>` : ""}
+  </div>`).join("");
+  return `<div style="margin-bottom:12px;font-size:11px;font-family:monospace;color:var(--secondary);">${platforms.length} platform${platforms.length !== 1 ? "s" : ""} found via ${escHtml(sec.source || "Sherlock")}</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">${cards}</div>`;
+}
+
+/** Render RELATED ACCOUNTS section */
+function renderRelatedAccounts(cv) {
+  const sec = getSection(cv, "related_accounts");
+  if (!sec) return emptyPlaceholder("group_add", "No Related Accounts", "Correlation algorithm pending.");
+  const accs = sec.accounts || [];
+  if (accs.length === 0) return emptyPlaceholder("group_add", "No Related Accounts Discovered", sec.note || "Insufficient datapoints.");
+  return `<div style="display:flex;flex-direction:column;gap:8px;">` +
+    accs.map(a => `<div class="suspect-card">${renderKV(a, ["section"])}</div>`).join("") + `</div>`;
+}
+
+/** Render ANALYTICS section */
+function renderAnalytics(cv) {
+  const sec = getSection(cv, "analytics");
+  if (!sec) return emptyPlaceholder("analytics", "No Analytics Data", "Requires profile activity records.");
+  const hours = sec.active_hours || sec.activeHours || [];
+  const timeline = sec.timeline || sec.timelineGraphData || [];
+  const pattern = sec.pattern_match || sec.patternMatch || "";
+  const hoursHtml = hours.length
+    ? hours.map(h => `<span class="active-hour-pill">${escHtml(h)}</span>`).join("")
+    : `<span style="font-size:11px;color:var(--outline);font-family:monospace;">No activity hours recorded.</span>`;
+  const maxCount = Math.max(...timeline.map(d => d.count || 0), 1);
+  const barsHtml = timeline.length
+    ? timeline.map(d => {
+        const pct = Math.max(((d.count || 0) / maxCount) * 100, 5);
+        return `<div class="bar-group"><div class="bar-fill" style="height:${pct}%;"></div><div class="bar-label">${escHtml(d.hour || "")}</div></div>`;
+      }).join("")
+    : "";
+  return `<div style="display:flex;flex-direction:column;gap:24px;">
+    <div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--primary);margin-bottom:12px;">Peak Activity Hours</div>
+      <div class="active-hours-wrap">${hoursHtml}</div>
+    </div>
+    ${barsHtml ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--outline);margin-bottom:12px;">Hourly Activity Amplitude</div>
+      <div class="bar-chart-wrap">${barsHtml}</div>
+    </div>` : ""}
+    ${pattern ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--tertiary);margin-bottom:12px;">Pattern Verdict</div>
+      <p style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">${escHtml(pattern)}</p>
+    </div>` : ""}
+  </div>`;
+}
+
+/** Render SENTIMENT section */
+function renderSentiment(cv) {
+  const sec = getSection(cv, "sentiment");
+  if (!sec) return emptyPlaceholder("psychology", "No Behavioral Data", "Neural analyzers waiting for completed profile indexes.");
+  const score   = sec.behavior_score ?? sec.behaviorScore ?? 0;
+  const bio     = sec.extracted_bio  ?? sec.extractedBio  ?? "";
+  const verdict = sec.behavior_verdict ?? sec.behaviorVerdict ?? "";
+  const keywords= sec.keywords || [];
+  const captions= sec.captions || [];
+  const kwHtml = keywords.length
+    ? keywords.map(k => `<span class="keyword-chip">#${escHtml(k)}</span>`).join(" ")
+    : `<span style="font-size:11px;color:var(--outline);font-family:monospace;">No keywords extracted.</span>`;
+  const capHtml = captions.map((c, i) => `<div class="caption-item"><span class="caption-num">[${i+1}]</span><span>"${escHtml(c)}"</span></div>`).join("");
+  return `<div style="display:flex;flex-direction:column;gap:24px;">
+    <div class="behavior-bar-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--outline);">Threat Quotient</span>
+        <span style="font-size:11px;font-family:monospace;font-weight:700;color:var(--tertiary);">${score}%</span>
+      </div>
+      <div class="behavior-bar-track"><div class="behavior-bar-fill" style="width:${score}%;"></div></div>
+    </div>
+    ${bio || verdict ? `<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      ${bio ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+        <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:12px;">Extracted Bio</div>
+        <p style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">${escHtml(bio)}</p>
+      </div>` : ""}
+      ${verdict ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+        <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--tertiary);margin-bottom:12px;">Verdict</div>
+        <p style="font-size:12px;color:var(--on-surface-variant);line-height:1.6;">${escHtml(verdict)}</p>
+      </div>` : ""}
+    </div>` : ""}
+    <div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--outline);margin-bottom:12px;">Keywords</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">${kwHtml}</div>
+    </div>
+    ${capHtml ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--outline);margin-bottom:12px;">Intercepts / Captions</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">${capHtml}</div>
+    </div>` : ""}
+  </div>`;
+}
+
+/** Render FOLLOWERS section */
+function renderFollowers(cv) {
+  const sec = getSection(cv, "followers");
+  if (!sec) return emptyPlaceholder("diversity_3", "Network Graph Pending", "Social graph API extraction queued.");
+  const followers = sec.followers || [];
+  const following = sec.following || [];
+  const friends   = sec.friends   || [];
+  if (!followers.length && !following.length && !friends.length) {
+    return emptyPlaceholder("diversity_3", "No Graph Data", sec.note || "Social graph requires API access.");
+  }
+  return `<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+    ${[["Followers", followers], ["Following", following], ["Friends", friends]].map(([label, list]) => `
+    <div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:16px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;color:var(--primary);margin-bottom:8px;">${label} (${list.length})</div>
+      ${list.length ? list.map(u => `<div style="font-size:12px;color:var(--on-surface);padding:2px 0;">${escHtml(String(u))}</div>`).join("") : `<span style="font-size:11px;color:var(--outline);">None</span>`}
+    </div>`).join("")}
+  </div>`;
+}
+
+/** Render CORRELATION section */
+function renderCorrelation(cv) {
+  const sec = getSection(cv, "correlation");
+  if (!sec) return emptyPlaceholder("scatter_plot", "No Correlation Data", "Awaiting more datapoints.");
+  const corr = sec.correlations || [];
+  if (corr.length === 0) return emptyPlaceholder("scatter_plot", "No Active Correlations", sec.note || "Awaiting more datapoints.");
+  return `<div style="display:flex;flex-direction:column;gap:12px;">` +
+    corr.map(c => `<div class="suspect-card">${renderKV(c, ["section"])}</div>`).join("") + `</div>`;
+}
+
+/** Render REVERSE IMAGE section */
+function renderReverseImage(cv) {
+  const sec = getSection(cv, "reverse_image");
+  if (!sec) return emptyPlaceholder("image_search", "No Reverse Image Data", "Requires a target profile picture.");
+  if (sec.results && sec.results.length === 0 && !sec.description) {
+    return emptyPlaceholder("image_search", "No Results", sec.note || "No reverse image results.");
+  }
+  const fields = [];
+  if (sec.description)        fields.push(["Description",        sec.description]);
+  if (sec.estimated_location) fields.push(["Estimated Location", sec.estimated_location]);
+  if (sec.confidence)         fields.push(["Confidence",         sec.confidence]);
+  if (sec.coordinates)        fields.push(["Coordinates",        sec.coordinates]);
+  if (sec.analyzed_at)        fields.push(["Analyzed At",        sec.analyzed_at]);
+  if (!fields.length) return emptyPlaceholder("image_search", "No Image Data", sec.note || "");
+  return `<div class="suspect-card">` +
+    fields.map(([k, v]) => `<div class="suspect-row"><span class="suspect-key">${escHtml(k.toUpperCase())}:</span><span style="color:var(--on-surface);font-size:12px;">${escHtml(String(v))}</span></div>`).join("") +
+    (sec.clues && sec.clues.length ? `<div style="margin-top:12px;"><div style="font-size:10px;font-family:monospace;color:var(--outline);margin-bottom:6px;">CLUES:</div><div style="display:flex;flex-wrap:wrap;gap:6px;">${sec.clues.map(c => `<span class="keyword-chip">${escHtml(c)}</span>`).join("")}</div></div>` : "") +
+    `</div>`;
+}
+
+/** Render FAKE ACCOUNT section */
+function renderFakeAccount(cv) {
+  const sec = getSection(cv, "fake_account");
+  if (!sec) return emptyPlaceholder("how_to_reg", "Authenticity Check Pending", "Bot detection AI analyzing.");
+  const verdict     = sec.verdict     || "Pending";
+  const confidence  = sec.confidence  ?? 0;
+  const indicators  = sec.indicators  || [];
+  const verdictColor = verdict === "Fake" ? "#f87171" : verdict === "Authentic" ? "var(--secondary)" : "var(--outline)";
+  return `<div style="display:flex;flex-direction:column;gap:16px;">
+    <div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;display:flex;align-items:center;gap:16px;">
+      <span class="material-symbols-outlined" style="font-size:32px;color:${verdictColor};">how_to_reg</span>
+      <div>
+        <div style="font-size:16px;font-weight:700;color:${verdictColor};">${escHtml(verdict)}</div>
+        <div style="font-size:11px;font-family:monospace;color:var(--outline);margin-top:2px;">Confidence: ${confidence}%</div>
+      </div>
+    </div>
+    ${indicators.length ? `<div style="background:var(--surface-container);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;color:var(--outline);margin-bottom:8px;">INDICATORS:</div>
+      ${indicators.map(i => `<div style="font-size:12px;color:var(--on-surface-variant);padding:2px 0;">${escHtml(String(i))}</div>`).join("")}
+    </div>` : ""}
+    ${sec.note ? `<div style="font-size:11px;font-family:monospace;color:var(--outline);">${escHtml(sec.note)}</div>` : ""}
+  </div>`;
+}
+
+/** Render MEDIA INTELLIGENCE section */
+function renderMediaIntel(cv) {
+  const sec = getSection(cv, "media_intelligence");
+  if (!sec) return emptyPlaceholder("perm_media", "Media Intel Offline", "No multimedia payload analyzed.");
+  const media = sec.media || [];
+  if (media.length === 0) return emptyPlaceholder("perm_media", "No Media Found", sec.note || "Media extraction pending.");
+  return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;">` +
+    media.map(m => `<div class="suspect-card">${renderKV(m, ["section"])}</div>`).join("") + `</div>`;
+}
+
+/** Render DNS section */
+function renderDns(cv) {
+  const sec = getSection(cv, "dns");
+  if (!sec) return emptyPlaceholder("dns", "No DNS Data", "Domain lookup not run.");
+  return `<div class="suspect-card">${renderKV(sec, ["section"])}</div>`;
+}
+
+/** Shared profile picture circle div (used by Instagram and Google Account sections) */
+function renderProfilePicDiv(url, label) {
+  return `<div style="flex-shrink:0;width:160px;display:flex;flex-direction:column;align-items:center;gap:8px;">
+    <div style="width:140px;height:140px;border-radius:50%;overflow:hidden;border:2px solid var(--outline-variant);background:var(--surface-container-lowest);display:flex;align-items:center;justify-content:center;">
+      ${url
+        ? `<img src="${escHtml(url)}" alt="Profile" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<span class=\\'material-symbols-outlined\\' style=\\'font-size:48px;color:var(--outline);\\'>person</span>';"/>`
+        : `<span class="material-symbols-outlined" style="font-size:48px;color:var(--outline);">person</span>`}
+    </div>
+    <span style="font-size:10px;font-family:monospace;color:var(--outline);text-transform:uppercase;text-align:center;">${escHtml(label)}</span>
+  </div>`;
+}
+
+/** Render INSTAGRAM section — profile pic on the right */
+function renderInstagram(cv) {
+  const sec = getSection(cv, "instagram");
+  if (!sec) return emptyPlaceholder("photo_camera", "No Instagram Data", "Scan this account to retrieve data.");
+  if (sec.error) return emptyPlaceholder("error", "Instagram Scan Error", sec.error);
+  const details = sec.account_details || {};
+  const rows = [
+    ["Username",           sec.username],
+    ["Full Name",          sec.full_name],
+    ["Biography",          sec.bio || sec.biography],
+    ["Followers",          sec.follower_count ?? sec.followers],
+    ["Following",          sec.following_count ?? sec.following],
+    ["Posts",              sec.post_count ?? sec.posts],
+    ["Private",            sec.is_private ? "Yes" : "No"],
+    ["Verified",           sec.is_verified ? "Yes" : "No"],
+    ["Country",            details.country],
+    ["Joined",             details.joined_date],
+    ["Former Usernames",   details.former_usernames_count],
+  ].filter(([, v]) => v !== undefined && v !== null && v !== "");
+  const infoHtml = rows.map(([l, v]) =>
+    `<div class="suspect-row"><span class="suspect-key">${escHtml(l.toUpperCase())}:</span><span style="color:var(--on-surface);font-weight:600;font-family:monospace;font-size:12px;">${escHtml(String(v))}</span></div>`
+  ).join("");
+  return `<div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+    <div style="flex:1;min-width:240px;" class="suspect-card">${infoHtml}</div>
+    ${renderProfilePicDiv(sec.profile_pic_url || sec.profile_photo_url, "Profile Picture")}
+  </div>`;
+}
+
+/** Render GOOGLE ACCOUNT section — profile pic + Maps reviews */
+function renderGoogleAccount(cv) {
+  const sec = getSection(cv, "google_account");
+  if (!sec) return emptyPlaceholder("badge", "No Google Account Data", "Run an email scan to check for an associated Google account.");
+  if (sec.found === false) return emptyPlaceholder("person_off", "No Google Account Found", sec.note || "This email has no associated Google account.");
+  if (sec.error && !sec.person_id) return emptyPlaceholder("error", "Google Account Check Error", sec.error);
+
+  const rows = [
+    ["Verified Email",    sec.verified_email],
+    ["Full Name",         sec.full_name],
+    ["Person ID",         sec.person_id],
+    ["Account Type",      Array.isArray(sec.user_types) ? sec.user_types.join(", ") : sec.user_types],
+    ["Reachable Apps",    Array.isArray(sec.reachable_apps) ? sec.reachable_apps.join(", ") : ""],
+    ["Presence",          sec.presence],
+    ["DND State",         sec.dnd_state],
+    ["Default Photo",     sec.is_default_photo ? "Yes" : "No (custom photo set)"],
+    ["Enterprise User",   sec.is_enterprise_user ? "Yes" : "No"],
+    ["Local Guide",       sec.is_local_guide ? `Yes — Level ${sec.local_guide_level || 0} (${sec.local_guide_points || 0} pts)` : "No"],
+    ["Maps Reviews",      sec.maps_reviews_count],
+    ["Has Calendar",      sec.has_calendar ? "Yes" : "No"],
+    ["Has Play Games",    sec.has_play_games ? "Yes" : "No"],
+    ["Last Updated",      sec.last_updated],
+  ].filter(([, v]) => v !== undefined && v !== null && v !== "");
+
+  const infoHtml = rows.map(([l, v]) =>
+    `<div class="suspect-row"><span class="suspect-key">${escHtml(l.toUpperCase())}:</span><span style="color:var(--on-surface);font-weight:600;font-family:monospace;font-size:12px;">${escHtml(String(v))}</span></div>`
+  ).join("");
+
+  const reviews = sec.maps_reviews || [];
+  const reviewsHtml = reviews.length ? reviews.map(r => `
+    <div class="suspect-card" style="margin-bottom:10px;">
+      <div class="suspect-row"><span class="suspect-key">PLACE:</span><span style="color:var(--secondary);font-weight:600;font-family:monospace;font-size:12px;">${escHtml(r.place || "")}</span></div>
+      <div class="suspect-row"><span class="suspect-key">RATING:</span><span style="color:var(--tertiary);font-weight:700;">★${escHtml(String(r.rating || ""))}</span></div>
+      <div class="suspect-row"><span class="suspect-key">DATE:</span><span style="color:var(--on-surface-variant);font-family:monospace;font-size:11px;">${escHtml(r.date || "")}</span></div>
+      <div class="suspect-row" style="border-bottom:none;"><span class="suspect-key">REVIEW:</span><span style="color:var(--on-surface);font-size:12px;line-height:1.5;">${escHtml(r.comment || "")}</span></div>
+    </div>`).join("") : `<p style="font-size:12px;color:var(--outline);font-family:monospace;">No Maps reviews found.</p>`;
+
+  return `<div style="display:flex;flex-direction:column;gap:20px;">
+    <div style="display:flex;gap:24px;align-items:flex-start;flex-wrap:wrap;">
+      <div style="flex:1;min-width:240px;" class="suspect-card">${infoHtml}</div>
+      ${renderProfilePicDiv(sec.profile_photo_url || sec.profile_pic_url, "Google Profile")}
+    </div>
+    ${reviews.length ? `<div><div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:12px;">Maps Reviews (${reviews.length})</div>${reviewsHtml}</div>` : ""}
+  </div>`;
+}
+
+/** Render platform-specific sections (instagram, facebook, twitter) */
+function renderPlatformSection(cv, platformKey) {
+  const sec = getSection(cv, platformKey);
+  if (!sec) return emptyPlaceholder("person_search", `No ${platformKey} Data`, "Scan this platform to retrieve data.");
+  if (sec.error) return emptyPlaceholder("error", `${platformKey} Error`, sec.error);
+  return `<div class="suspect-card">${renderKV(sec, ["section", "query", "note"])}</div>`;
+}
+
+// ============================================================
+// DETAIL RENDER — MAIN ENTRY POINT
+// ============================================================
+function renderDetail() {
+  if (!selectedCase) return;
+  const cv = selectedCase;
+  const container = document.getElementById("detail-inner");
+
+  const typeStr  = (cv.type || "").toLowerCase().trim();
+  const basicTypes = ["email", "phone", "alias/name", "alias", "phone number"];
+  const isBasicView = basicTypes.some(t => typeStr.includes(t));
+
+  // --- Define sections ---
+  let sections = [];
+
+  if (isBasicView) {
+    sections = [
+      { key: "BASIC INFO",              html: renderBasicSection(cv),     open: true  },
+      { key: "CONNECTED SOCIALS",       html: renderConnectedSocials(cv), open: false },
+      { key: "DATABREACH",              html: renderDatabreach(cv),        open: false },
+      { key: "ONLINE PRESENCE (BY AI)", html: renderAiSummary(cv),         open: false },
+      { key: "DORKING",                 html: renderDorking(cv),            open: false },
+    ];
+    if (getSection(cv, "google_account")) {
+      sections.splice(2, 0, { key: "GOOGLE ACCOUNT", html: renderGoogleAccount(cv), open: false });
+    }
+  } else {
+    // Check which platform sections exist in data
+    const extraPlatformSections = [];
+    ["instagram", "facebook", "twitter"].forEach(p => {
+      if (getSection(cv, p)) {
+        extraPlatformSections.push({
+          key: p.toUpperCase(),
+          html: p === "instagram" ? renderInstagram(cv) : renderPlatformSection(cv, p),
+          open: false
+        });
+      }
+    });
+    if (getSection(cv, "dns")) {
+      extraPlatformSections.push({ key: "DNS / DOMAIN", html: renderDns(cv), open: false });
+    }
+
+    sections = [
+      { key: "BASIC INFO",                       html: renderBasicSection(cv),      open: true  },
+      { key: "GALLERY",                          html: renderGallery(cv),            open: false },
+      ...extraPlatformSections,
+      { key: "RELATED PLATFORMS",                html: renderRelatedPlatforms(cv),   open: false },
+      { key: "RELATED ACCOUNTS (80% ACCURATE)",  html: renderRelatedAccounts(cv),    open: false },
+      { key: "ANALYTICS",                        html: renderAnalytics(cv),          open: false },
+      { key: "SENTIMENT ANALYSIS & BEHAVIOR",    html: renderSentiment(cv),          open: false },
+      { key: "MEDIA INTELLIGENCE TOOL",          html: renderMediaIntel(cv),         open: false },
+      { key: "FOLLOWERS / FOLLOWING / FRIENDS",  html: renderFollowers(cv),          open: false },
+      { key: "CORRELATION TOOL",                 html: renderCorrelation(cv),        open: false },
+      { key: "REVERSE IMAGE SEARCH",             html: renderReverseImage(cv),       open: false },
+      { key: "POSSIBLE FAKE ACCOUNT",            html: renderFakeAccount(cv),        open: false },
+      { key: "AI SUMMARY",                       html: renderAiSummary(cv),          open: false },
+    ];
+    if (getSection(cv, "auto_osint_report")) {
+      sections.push({ key: "AUTO-AI REPORT", html: renderAutoOsintReport(cv), open: false });
+    }
+  }
+
+  // Also append AUTO-AI REPORT for isBasicView if present
+  if (isBasicView && getSection(cv, "auto_osint_report")) {
+    sections.push({ key: "AUTO-AI REPORT", html: renderAutoOsintReport(cv), open: false });
+  }
+
+  // Store globally so activateSection() can look up html/icon without re-rendering everything
+  currentSectionsList = sections;
+
+  // Default active section = the one flagged open (BASIC INFO), else the first one
+  const defaultSection = sections.find(s => s.open) || sections[0];
+
+  // Build left nav
+  const navHtml = sections.map(s => {
+    const icon = SECTION_ICONS[s.key] || "info";
+    const isActive = s.key === defaultSection.key;
+    return `<button class="intel-nav-btn ${isActive ? 'active' : ''}" data-section="${escHtml(s.key)}"
+      onclick="activateSection('${s.key.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
+      <span class="material-symbols-outlined" style="font-size:16px;flex-shrink:0;">${icon}</span>
+      <span>${escHtml(s.key)}</span>
+    </button>`;
+  }).join("");
+
+  const defaultIcon = SECTION_ICONS[defaultSection.key] || "info";
+
+  container.innerHTML = `
+  <div class="detail-banner">
+    <div style="display:flex;align-items:flex-start;gap:16px;">
+      <button class="btn-back" onclick="switchTab('dashboard')" title="Back">
+        <span class="material-symbols-outlined" style="font-size:18px;">arrow_back</span>
+      </button>
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+          <span class="detail-code">${escHtml(cv.code)}</span>
+          <span class="detail-status">${escHtml(cv.status || "Active")}</span>
+          ${cv.searchStatus && cv.searchStatus !== "Completed" ? `<span style="font-size:10px;font-family:monospace;color:var(--tertiary);animation:pulse 2s infinite;">${escHtml(cv.searchStatus)}</span>` : ""}
+        </div>
+        <div class="detail-title">${escHtml(cv.title)}</div>
+        <div class="detail-query">Query: <span>${escHtml(cv.query)}</span> &nbsp;|&nbsp; Type: <span>${escHtml(cv.type)}</span></div>
+      </div>
+    </div>
+    <button class="btn-danger-text" onclick="openDeleteModal('${escHtml(cv.code)}')">
+      <span class="material-symbols-outlined" style="font-size:16px;">delete</span>Purge
+    </button>
+  </div>
+
+  <div class="intel-panel-wrap">
+    <nav class="intel-section-nav">
+      <div style="font-size:9px;font-family:monospace;text-transform:uppercase;letter-spacing:0.12em;color:var(--outline);padding:6px 12px 10px;font-weight:700;">Sections</div>
+      ${navHtml}
+    </nav>
+
+    <!-- Single panel: sticky header + ONE scrollable body. Only this swaps on nav click. -->
+    <div class="intel-detail-panel">
+      <div class="intel-detail-header" id="intel-detail-header">
+        <span class="material-symbols-outlined" style="font-size:18px;">${defaultIcon}</span>
+        <span>${escHtml(defaultSection.key)}</span>
+      </div>
+      <div class="intel-detail-body" id="intel-detail-body">
+        ${defaultSection.html}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ============================================================
+// NEW CASE MODAL
+// ============================================================
+function openNewCaseModal() {
+  const code = `DCase${Math.floor(1000 + Math.random() * 9000)}`;
+  document.getElementById("nc-code").value = code;
+  document.getElementById("nc-title").value = "";
+  document.getElementById("nc-type").value = "";
+  document.getElementById("nc-query").value = "";
+  document.getElementById("nc-priority").value = "High / Alpha";
+  document.getElementById("modal-new-case").classList.add("active");
+}
+function closeNewCaseModal() { document.getElementById("modal-new-case").classList.remove("active"); }
+
+async function deployCase() {
+  const code     = document.getElementById("nc-code").value.trim();
+  const title    = document.getElementById("nc-title").value.trim();
+  const type     = document.getElementById("nc-type").value.trim();
+  const query    = document.getElementById("nc-query").value.trim();
+  const priority = document.getElementById("nc-priority").value;
+
+  if (!title || !type || !query) {
+    console.warn("[ECHOMARK][deployCase] Missing required fields");
+    return;
+  }
+
+  const btn = document.getElementById("nc-submit");
+  btn.disabled = true;
+  btn.innerHTML = '<span class="mini-spinner"></span> Deploying Vector...';
+
+  const now = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  const created = `${now.getUTCFullYear()}-${pad(now.getUTCMonth()+1)}-${pad(now.getUTCDate())} ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}Z`;
+
+  // New clean schema — no mock data, no embedded suspects/profiles
+  const payload = {
+    code,
+    title,
+    query,
+    type,
+    created,
+    status:       "Active",
+    priority,
+    objective:    `OSINT scan for target '${query}' (${type}).`,
+    searchStatus: "Pending",
+    logs:         [`${created} — Case ${code} created for target: ${query}`],
+    sections:     []
+  };
+
+  console.log(`[ECHOMARK][deployCase] Creating case ${code} — query='${query}' type='${type}'`);
+
+  try {
+    const res = await fetch("/api/cases", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      console.error("[ECHOMARK][deployCase] Server error:", err);
+      return;
+    }
+
+    const data = await res.json();
+    console.log(`[ECHOMARK][deployCase] Case created — triggering OSINT pipeline for ${code}`);
+
+    closeNewCaseModal();
+    await fetchCases();
+
+    // Set selectedCase from server response, then navigate
+    selectedCase = data.case || payload;
+    switchTab("detail");
+    renderDetail();
+
+    // Fire OSINT pipeline in background
+    fetch(`/api/cases/${code}/trigger-osint`, { method: "POST" })
+      .then(r => r.json())
+      .then(d => console.log(`[ECHOMARK][deployCase] OSINT pipeline response:`, d))
+      .catch(e => console.error("[ECHOMARK][deployCase] OSINT trigger failed:", e));
+
+  } catch (e) {
+    console.error("[ECHOMARK][deployCase] Fetch error:", e);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px;">sensors</span> Deploy Active Case';
+    console.log(`[ECHOMARK][deployCase] Done — btn reset`);
+  }
+}
+
+// ============================================================
+// DELETE MODAL
+// ============================================================
+function openDeleteModal(code) {
+  deleteTargetCode = code;
+  document.getElementById("delete-code-label").textContent = code;
+  document.getElementById("delete-code-text").textContent = code;
+  document.getElementById("modal-delete").classList.add("active");
+}
+function closeDeleteModal() { document.getElementById("modal-delete").classList.remove("active"); deleteTargetCode = null; }
+async function confirmDelete() {
+  if (!deleteTargetCode) return;
+  console.log(`[ECHOMARK][confirmDelete] Deleting case ${deleteTargetCode}`);
+  try {
+    const res = await fetch(`/api/cases/${deleteTargetCode}`, { method: "DELETE" });
+    if (res.ok) {
+      console.log(`[ECHOMARK][confirmDelete] Case ${deleteTargetCode} deleted OK`);
+      if (selectedCase && selectedCase.code === deleteTargetCode) {
+        selectedCase = null;
+        switchTab("dashboard");
+      }
+      closeDeleteModal();
+      await fetchCases();
+    } else {
+      console.error(`[ECHOMARK][confirmDelete] Server returned ${res.status}`);
+      alert("Failed to delete case.");
+    }
+  } catch(e) {
+    console.error("[ECHOMARK][confirmDelete] ERROR:", e);
+  }
+}
+
+// ============================================================
+// SIDEBAR / SETTINGS HELPERS
+// ============================================================
+function updateSidebarProfile() {
+  if (operator) {
+    document.getElementById("sidebar-fullname").textContent = operator.fullName || "Agent Alpha";
+    document.getElementById("sidebar-username").textContent = operator.username || "Verified Agent";
+  }
+}
+function updateSettingsPanel() {
+  if (operator) {
+    document.getElementById("settings-operator-id").textContent = operator.operatorId || "STANDBY";
+    document.getElementById("settings-fullname").textContent = operator.fullName || "N/A";
+    document.getElementById("settings-username").textContent = operator.username || "N/A";
+    document.getElementById("settings-email").textContent = operator.email || "N/A";
+  }
+}
+
+// ============================================================
+// UTILITIES
+// ============================================================
+function escHtml(str) {
+  if (str == null) return "";
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#39;");
+}
+
+// ============================================================
+// AUTO-AI OSINT
+// ============================================================
+function renderAutoOsintReport(cv) {
+  const sec = getSection(cv, "auto_osint_report");
+  if (!sec) return emptyPlaceholder("smart_toy", "No Auto-AI Report Yet", "Click 'Auto-AI OSINT' in the sidebar to run the autonomous agent.");
+
+  const actions = (sec.actions_taken || []).map(a =>
+    `<div style="font-family:monospace;font-size:11px;color:var(--secondary);padding:3px 0;border-bottom:1px solid rgba(65,71,85,0.15);">▸ ${escHtml(a)}</div>`
+  ).join("");
+
+  const reportHtml = escHtml(sec.report || "No report generated.").replace(/\n/g, "<br>");
+
+  return `<div style="display:flex;flex-direction:column;gap:20px;">
+    <div style="background:var(--surface-container);border:1px solid rgba(78,222,163,0.3);border-radius:12px;padding:16px;">
+      <div style="font-size:10px;font-family:monospace;color:var(--outline);text-transform:uppercase;margin-bottom:8px;">Actions Executed (${(sec.actions_taken||[]).length})</div>
+      ${actions || '<span style="font-size:11px;color:var(--outline);font-family:monospace;">No tool calls were made.</span>'}
+    </div>
+    <div style="background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:12px;padding:20px;">
+      <div style="font-size:11px;font-family:monospace;font-weight:700;text-transform:uppercase;color:var(--primary);margin-bottom:14px;display:flex;justify-content:space-between;">
+        <span>Intelligence Report</span>
+        <span style="color:var(--outline);font-weight:400;">${escHtml(sec.generated_at || "")}</span>
+      </div>
+      <div style="font-size:13px;color:var(--on-surface);line-height:1.7;">${reportHtml}</div>
+    </div>
+  </div>`;
+}
+
+async function triggerAutoOsint() {
+  if (!selectedCase) {
+    alert("Open a case first before running Auto-AI OSINT.");
+    return;
+  }
+  const btn = document.getElementById("btn-auto-osint");
+  btn.disabled = true;
+  btn.style.opacity = "0.5";
+  btn.querySelector(".material-symbols-outlined").innerText = "hourglass_empty";
+  console.log(`[ECHOMARK][triggerAutoOsint] Starting for case ${selectedCase.code}`);
+  try {
+    const res = await fetch(`/api/cases/${selectedCase.code}/auto-osint`, { method: "POST" });
+    const data = await res.json();
+    console.log("[ECHOMARK][triggerAutoOsint] Response:", data);
+    if (res.ok) {
+      switchTab("detail");
+      if (!getSection(selectedCase, "auto_osint_report")) {
+        // Add a temporary placeholder section so the nav tab appears immediately
+        if (!selectedCase.sections) selectedCase.sections = [];
+        selectedCase.sections.push({ section: "auto_osint_report", query: selectedCase.query, report: "⏳ Agent is running... Refresh in a moment.", actions_taken: [], generated_at: "" });
+        renderDetail();
+      }
+      activateSection("AUTO-AI REPORT");
+    } else {
+      alert(data.error || "Failed to start Auto-AI OSINT.");
+    }
+  } catch(e) {
+    console.error("[ECHOMARK][triggerAutoOsint] Error:", e);
+    alert("Network error triggering Auto-AI OSINT.");
+  } finally {
+    setTimeout(() => {
+      btn.disabled = false;
+      btn.style.opacity = "1";
+      btn.querySelector(".material-symbols-outlined").innerText = "smart_toy";
+    }, 3000);
+  }
+}
+
+// ============================================================
+// BOOT
+// ============================================================
+init();
+console.log("[ECHOMARK][index.html] Script end — all functions registered, init() called");
+</script>
+</body>
+</html>

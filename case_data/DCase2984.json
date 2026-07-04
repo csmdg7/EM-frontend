@@ -1,0 +1,239 @@
+{
+  "code": "DCase2984",
+  "title": "test 5",
+  "query": "suryakiran561203@gmail.com",
+  "type": "email",
+  "created": "2026-06-30 03:48Z",
+  "status": "Active",
+  "priority": "High / Alpha",
+  "objective": "OSINT scan for target 'suryakiran561203@gmail.com' (email).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-06-30 03:48Z — [PIPELINE] Scan completed",
+    "2026-06-30 03:48Z — [AI] Summary written — 181 chars, context_sections=3",
+    "2026-06-30 03:48Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-06-30 03:48Z — [EMAIL] All sections written",
+    "2026-06-30 03:48Z — [EMAIL] Breach check: BREACHED (4 sources).",
+    "2026-06-30 03:48Z — [EMAIL] Social accounts found: 13.",
+    "2026-06-30 03:48Z — [EMAIL] Scan started for 'suryakiran561203@gmail.com'",
+    "2026-06-30 03:48Z — [PIPELINE] Type bucket → 'email'",
+    "2026-06-30 03:48Z — [PIPELINE] Scan started — query='suryakiran561203@gmail.com' type='email'",
+    "2026-06-30 03:48Z — Case DCase2984 created."
+  ],
+  "sections": [
+    {
+      "section": "basic",
+      "query": "suryakiran561203@gmail.com",
+      "type": "email",
+      "local_part": "suryakiran561203",
+      "domain": "gmail.com",
+      "notes": "Email target — querying social media / breach checker API."
+    },
+    {
+      "section": "connected_socials",
+      "query": "suryakiran561203@gmail.com",
+      "profiles": [
+        {
+          "platform": "facebook",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "github",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "google",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "microsoft",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "pinterest",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "spotify",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "twitter",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "discord",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "amazon",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "adobe",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "archiveorg",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "duolingo",
+          "status": "found",
+          "source": "email-social-media-checker"
+        },
+        {
+          "platform": "replit",
+          "status": "found",
+          "source": "email-social-media-checker"
+        }
+      ],
+      "registered_count": 13,
+      "not_registered": [
+        "apple",
+        "ebay",
+        "flickr",
+        "foursquare",
+        "gravatar",
+        "instagram",
+        "lastfm",
+        "linkedin",
+        "myspace",
+        "skype",
+        "tumblr",
+        "vimeo",
+        "weibo",
+        "yahoo",
+        "ok",
+        "kakao",
+        "booking",
+        "airbnb",
+        "qzone",
+        "mailru",
+        "wordpress",
+        "imgur",
+        "disneyplus",
+        "netflix",
+        "jdid",
+        "flipkart",
+        "bukalapak",
+        "lazada",
+        "zoho",
+        "samsung",
+        "evernote",
+        "envato",
+        "patreon",
+        "tokopedia",
+        "rambler",
+        "quora",
+        "atlassian",
+        "aboutme",
+        "altbalaji",
+        "bitmoji",
+        "bodybuilding",
+        "codecademy",
+        "deliveroo",
+        "diigo",
+        "eventbrite",
+        "firefox",
+        "freelancer",
+        "gaana",
+        "giphy",
+        "hubspot",
+        "kommo",
+        "komoot",
+        "nike",
+        "plurk",
+        "rappi",
+        "seoclerks",
+        "snapchat",
+        "snapdeal",
+        "soundcloud",
+        "starz",
+        "strava",
+        "taringa",
+        "tiki",
+        "treehouse",
+        "venmo",
+        "vivino",
+        "vkontakte",
+        "wattpad",
+        "xing",
+        "yandex",
+        "adult_sites"
+      ],
+      "source": "email-social-media-checker"
+    },
+    {
+      "section": "databreach",
+      "email": "suryakiran561203@gmail.com",
+      "is_breached": true,
+      "breach_count": 4,
+      "first_breach": "2024-09-28",
+      "breaches": [
+        {
+          "date": "2024-09-28",
+          "domain": "archive.org",
+          "name": "Internet Archive"
+        },
+        {
+          "date": "2025-02-15",
+          "domain": "",
+          "name": "ALIEN TXTBASE Stealer Logs"
+        },
+        {
+          "date": "2025-04-11",
+          "domain": "",
+          "name": "Synthient Stealer Log Threat Data"
+        },
+        {
+          "date": "2025-04-11",
+          "domain": "",
+          "name": "Synthient Credential Stuffing Threat Data"
+        }
+      ],
+      "breach_names": [
+        "Internet Archive",
+        "ALIEN TXTBASE Stealer Logs",
+        "Synthient Stealer Log Threat Data",
+        "Synthient Credential Stuffing Threat Data"
+      ],
+      "domain_intel": {
+        "acceptAll": false,
+        "created": "1995-08-13 04:00:00",
+        "dmarcEnforced": true,
+        "registered": true,
+        "registeredTo": "Google LLC",
+        "registrar": "MarkMonitor Inc.",
+        "spfStrict": true,
+        "suspiciousTLD": false,
+        "type": "free",
+        "updated": "2025-07-11 10:10:56",
+        "validMX": true,
+        "websiteExists": true
+      },
+      "score": 0,
+      "applied_rules": [
+        "Domain is a free provider. At least 2 online profiles were found. It was involved in at least a data breach"
+      ],
+      "note": "4 breach source(s) found."
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY",
+      "generated_at": "2026-06-30 03:48Z",
+      "context_used": 3
+    }
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "code": "DCase2360",
+  "title": "test 3 ig",
+  "query": "suryakirannnn",
+  "type": "instagram",
+  "created": "2026-06-30 08:03Z",
+  "status": "Active",
+  "priority": "Low",
+  "objective": "OSINT scan for target 'suryakirannnn' (instagram).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-06-30 08:03Z — [PIPELINE] Scan completed",
+    "2026-06-30 08:03Z — [AI] Summary written — 181 chars, context_sections=1",
+    "2026-06-30 08:03Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-06-30 08:03Z — [INSTAGRAM] All sections written",
+    "2026-06-30 08:03Z — [INSTAGRAM] Related platforms: 0 found via Sherlock",
+    "2026-06-30 08:03Z — [INSTAGRAM] Profile section written — error=402 Client Error: Payment Required for url: https://api.hikerapi.com/v1/user/by/username?username=suryakirannnn",
+    "2026-06-30 08:03Z — [INSTAGRAM] Scan started for 'suryakirannnn'",
+    "2026-06-30 08:03Z — [PIPELINE] Type bucket → 'instagram'",
+    "2026-06-30 08:03Z — [PIPELINE] Scan started — query='suryakirannnn' type='instagram'",
+    "2026-06-30 08:03Z — Case DCase2360 created."
+  ],
+  "sections": [
+    {
+      "section": "instagram",
+      "query": "suryakirannnn",
+      "error": "402 Client Error: Payment Required for url: https://api.hikerapi.com/v1/user/by/username?username=suryakirannnn"
+    },
+    {
+      "section": "related_platforms",
+      "query": "suryakirannnn",
+      "platforms": [],
+      "source": "sherlock"
+    },
+    {
+      "section": "gallery",
+      "query": "suryakirannnn",
+      "images": [],
+      "note": "Profile image extraction requires direct scrape."
+    },
+    {
+      "section": "related_accounts",
+      "query": "suryakirannnn",
+      "accounts": [],
+      "note": "Cross-platform account correlation requires more datapoints."
+    },
+    {
+      "section": "analytics",
+      "query": "suryakirannnn",
+      "active_hours": [],
+      "note": "Activity analytics requires scraped post timestamps."
+    },
+    {
+      "section": "sentiment",
+      "query": "suryakirannnn",
+      "keywords": [],
+      "note": "Sentiment analysis requires scraped captions/comments."
+    },
+    {
+      "section": "media_intelligence",
+      "query": "suryakirannnn",
+      "media": [],
+      "note": "Media intelligence requires scraped post data."
+    },
+    {
+      "section": "followers",
+      "query": "suryakirannnn",
+      "followers": [],
+      "note": "Follower graph extraction requires authenticated API access."
+    },
+    {
+      "section": "correlation",
+      "query": "suryakirannnn",
+      "correlations": [],
+      "note": "Awaiting more datapoints to establish cross-platform links."
+    },
+    {
+      "section": "reverse_image",
+      "query": "suryakirannnn",
+      "results": [],
+      "note": "Requires a target profile picture to initiate."
+    },
+    {
+      "section": "fake_account",
+      "query": "suryakirannnn",
+      "indicators": [],
+      "note": "Bot detection requires scraped engagement metrics."
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY",
+      "generated_at": "2026-06-30 08:03Z",
+      "context_used": 1
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "code": "DCase7702",
+  "title": "test case 8",
+  "query": "suryakirannnn",
+  "type": "instagram",
+  "created": "2026-06-30 11:13Z",
+  "status": "Active",
+  "priority": "High / Alpha",
+  "objective": "OSINT scan for target 'suryakirannnn' (instagram).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-06-30 11:13Z — [PIPELINE] Scan completed",
+    "2026-06-30 11:13Z — [AI] Summary written — 181 chars, context_sections=1",
+    "2026-06-30 11:13Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-06-30 11:13Z — [INSTAGRAM] All sections written",
+    "2026-06-30 11:13Z — [INSTAGRAM] Related platforms: 0 found via Sherlock",
+    "2026-06-30 11:13Z — [INSTAGRAM] All core sections written",
+    "2026-06-30 11:13Z — [INSTAGRAM] Scan started for 'suryakirannnn'",
+    "2026-06-30 11:13Z — [PIPELINE] Type bucket → 'instagram'",
+    "2026-06-30 11:13Z — [PIPELINE] Scan started — query='suryakirannnn' type='instagram'",
+    "2026-06-30 11:13Z — Case DCase7702 created."
+  ],
+  "sections": [
+    {
+      "section": "instagram",
+      "query": "suryakirannnn",
+      "username": "suryakirannnn",
+      "full_name": "",
+      "bio": "\"Better than ever before\"",
+      "follower_count": 6206,
+      "following_count": 687,
+      "account_creation_date": "September 2019",
+      "country": "India",
+      "former_usernames_count": "4",
+      "is_verified": false,
+      "is_private": false,
+      "profile_pic_url": "https://scontent-ord5-1.cdninstagram.com/v/t51.82787-19/724230518_18118438984698908_6326359640991700821_n.jpg?stp=dst-jpg_e0_s150x150_tt6&_nc_cat=106&ig_cache_key=GHbhKiscTJHPn15AAFWXrTKTvstXbmNDAQAB1501500j-ccb7-5&ccb=7-5&_nc_sid=669407&efg=eyJ2ZW5jb2RlX3RhZyI6InByb2ZpbGVfcGljLnd3dy4xMDgwLkMzIn0%3D&_nc_ohc=FRC4MHdK27AQ7kNvwEQuXMP&_nc_oc=AdqIdjyaYbmSUk9VHOZP9xLtE76r5KnBAQUy2fGB-StMGjPwcfG7AKOu3TD5_i_RmJY&_nc_ad=z-m&_nc_cid=0&_nc_zt=24&_nc_ht=scontent-ord5-1.cdninstagram.com&_nc_gid=-55ZzALRxeRebd0nxV_NkA&_nc_ss=703ba&oh=00_AQBNud-EJ6y796UDF5wwRUgsI5AmpZzyplMTH89cdtF6JQ&oe=6A495C45",
+      "post_count": 3
+    },
+    {
+      "section": "media",
+      "query": "suryakirannnn",
+      "images": []
+    },
+    {
+      "section": "followers",
+      "query": "suryakirannnn",
+      "followers": []
+    },
+    {
+      "section": "following",
+      "query": "suryakirannnn",
+      "following": []
+    },
+    {
+      "section": "sentiment",
+      "query": "suryakirannnn",
+      "keywords": {
+        "bio": "\"Better than ever before\"",
+        "captions": []
+      }
+    },
+    {
+      "section": "fake_account",
+      "query": "suryakirannnn",
+      "fake_score_percent": 14,
+      "verdict": "LIKELY GENUINE",
+      "signals_triggered": 3,
+      "reasons": [
+        "No full name set",
+        "Low engagement rate (0.37%)",
+        "Posts clustered in very narrow time window"
+      ]
+    },
+    {
+      "section": "related_platforms",
+      "query": "suryakirannnn",
+      "platforms": [],
+      "source": "sherlock"
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 400 Client Error: Bad Request for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=YOUR_GEMINI_API_KEY",
+      "generated_at": "2026-06-30 11:13Z",
+      "context_used": 1
+    }
+  ]
+}

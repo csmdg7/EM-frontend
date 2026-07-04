@@ -1,0 +1,150 @@
+{
+  "code": "DCase3456",
+  "title": "test email 2",
+  "query": "tejumali26@gmail.com",
+  "type": "email",
+  "created": "2026-07-03 06:44Z",
+  "status": "Active",
+  "priority": "High / Alpha",
+  "objective": "OSINT scan for target 'tejumali26@gmail.com' (email).",
+  "searchStatus": "Completed",
+  "logs": [
+    "2026-07-04 05:13Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-04 05:12Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-04 05:12Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-04 05:12Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-04 05:12Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-04 05:12Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-03 09:11Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-03 09:09Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Auto-AI OSINT agent complete — report written.",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Generating final report via Gemini...",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Action plan: 0 action(s) planned.",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Gemini returned invalid action plan — skipping tool calls.",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Requesting action plan from Gemini...",
+    "2026-07-03 06:49Z — [AUTO-AGENT] Autonomous OSINT agent started.",
+    "2026-07-03 06:44Z — [PIPELINE] Scan completed",
+    "2026-07-03 06:44Z — [AI] Summary written — 209 chars, context_sections=1",
+    "2026-07-03 06:44Z — [AI] Generating intelligence summary via Gemini...",
+    "2026-07-03 06:44Z — [EMAIL] Breach checker failed — 429 Client Error: Too Many Requests for url: https://email-social-media-checker.p.rapidapi.com/check_email?email=tejumali26%40gmail.com",
+    "2026-07-03 06:44Z — [EMAIL] Google account found — person_id=113404893904281844416 reviews=2",
+    "2026-07-03 06:44Z — [EMAIL] Scan started for 'tejumali26@gmail.com'",
+    "2026-07-03 06:44Z — [PIPELINE] Type bucket → 'email'",
+    "2026-07-03 06:44Z — [PIPELINE] Scan started — query='tejumali26@gmail.com' type='email'",
+    "2026-07-03 06:44Z — Case DCase3456 created."
+  ],
+  "sections": [
+    {
+      "section": "basic",
+      "query": "tejumali26@gmail.com",
+      "type": "email",
+      "local_part": "tejumali26",
+      "domain": "gmail.com",
+      "notes": "Email target — querying breach checker and Google account API."
+    },
+    {
+      "section": "google_account",
+      "email": "tejumali26@gmail.com",
+      "person_id": "113404893904281844416",
+      "verified_email": "tejumali26@gmail.com",
+      "full_name": "Teju Mali",
+      "first_name": "Teju",
+      "last_name": "Mali",
+      "profile_photo_url": "https://lh3.googleusercontent.com/a-/ALV-UjWdgQ_vJFZ0fynF47ancGM_36m2QNqMoRfGg5tMg41CCGnJTA=mo",
+      "is_default_photo": true,
+      "user_types": [
+        "GOOGLE_USER"
+      ],
+      "reachable_apps": [
+        "Photos",
+        "Maps",
+        "Meet"
+      ],
+      "last_updated": "2026/06/27 13:30:04 (UTC)",
+      "presence": "UNKNOWN",
+      "entity_type": "PERSON",
+      "dnd_state": "AVAILABLE",
+      "customer_id": "",
+      "is_enterprise_user": false,
+      "has_play_games": false,
+      "has_calendar": false,
+      "maps_reviews": [
+        {
+          "place": "Burger King",
+          "address": "Shop No 102, Prestige Plaza, 114 & 113, Mother Dairy Rd, near Dmart, Yelahanka New Town, Bengaluru, Karnataka 560064, India",
+          "rating": 5,
+          "comment": "",
+          "date": "2025-07-03",
+          "likes": 0,
+          "link": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChdDSUhNMG9nS0VJQ0FnTURRd01MU19BRRAB!2m1!1s0x0:0xe192f18d8c48cf6c!3m1!1s2@1:CIHM0ogKEICAgMDQwMLS_AE%7C%7C?hl=en"
+        },
+        {
+          "place": "Wild Cats - Bridal boutique & Best Wedding Gown Shop in Bangalore",
+          "address": "338/5, Narayan Pillai Street 2nd Cross, Commercial Street, Bengaluru, Karnataka 560001, India",
+          "rating": 5,
+          "comment": "Good service and good sale staff",
+          "date": "2024-07-03",
+          "likes": 0,
+          "link": "https://www.google.com/maps/reviews/data=!4m8!14m7!1m6!2m5!1sChZDSUhNMG9nS0VJQ0FnSURqLVpMUkRnEAE!2m1!1s0x0:0x97a99c9986e067a2!3m1!1s2@1:CIHM0ogKEICAgIDj-ZLRDg%7C%7C?hl=en"
+        }
+      ],
+      "maps_reviews_count": 2,
+      "maps_stats": {
+        "Reviews": 2,
+        "Ratings": 1,
+        "Photos": 0,
+        "Videos": 0,
+        "Captions": 0,
+        "Answers": 6,
+        "Edits": 0,
+        "Reported incorrect": 0,
+        "Places added": 0,
+        "Roads added": 0,
+        "Facts checked": 0,
+        "Q&A": 0
+      },
+      "is_local_guide": true,
+      "local_guide_level": 2,
+      "local_guide_points": 29,
+      "note": "Active Google account found."
+    },
+    {
+      "section": "connected_socials",
+      "query": "tejumali26@gmail.com",
+      "profiles": [],
+      "source": "email-social-media-checker",
+      "note": "429 Client Error: Too Many Requests for url: https://email-social-media-checker.p.rapidapi.com/check_email?email=tejumali26%40gmail.com"
+    },
+    {
+      "section": "databreach",
+      "email": "tejumali26@gmail.com",
+      "breach_count": 0,
+      "breaches": [],
+      "note": "429 Client Error: Too Many Requests for url: https://email-social-media-checker.p.rapidapi.com/check_email?email=tejumali26%40gmail.com"
+    },
+    {
+      "section": "ai_summary",
+      "summary": "AI summary generation failed: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-3-pro:generateContent?key=[REDACTED]",
+      "generated_at": "2026-07-03 06:44Z",
+      "context_used": 1
+    },
+    {
+      "section": "auto_osint_report",
+      "query": "tejumali26@gmail.com",
+      "actions_taken": [],
+      "tool_outputs": [],
+      "report": "Report generation failed — GEMINI_API_KEY not configured or Gemini returned no response.",
+      "generated_at": "2026-07-04 05:13Z"
+    }
+  ]
+}
